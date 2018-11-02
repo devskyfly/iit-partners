@@ -1,0 +1,23 @@
+{
+	"name" : "devskyfly/iit-agents-info",
+	"type" : "module",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Ivan",
+			"email" : "devskyfly@gmail.com"
+		}
+	],
+	"require" : {
+		"php" : ">=5.6.0",
+		"devskyfly/php56" : "dev-dev",
+		"devskyfly/yii-module-admin-panel" : "dev-dev",
+		"yiisoft/yii2" : "^2.0@dev",
+		"yiisoft/yii2-gii" : "^2.0@dev"
+	},
+	"minimum-stability" : "dev",
+	"autoload" : {
+		"psr-4" : {
+			"devskyfly\\yiiModuleIitAgentsInfo\\" : ""
+		}
+	}
+}
