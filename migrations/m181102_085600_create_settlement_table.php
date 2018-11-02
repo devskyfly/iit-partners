@@ -10,6 +10,7 @@ class m181102_085600_create_settlement_table extends EntityMigrationHelper
     {
         $fields=$this->getFieldsDefinition();
         $fields['str_nmb']=$this->char(2);
+        $fields['flag_is_onw']="ENUM('CITY','COUNTRY','SETTLEMENT','SETTLEMENT_TOWN') NOT NULL";
         $this->createTable($this->table, $fields);
     }
 

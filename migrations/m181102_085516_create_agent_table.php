@@ -9,6 +9,11 @@ class m181102_085516_create_agent_table extends EntityMigrationHelper
     public function up()
     {
         $fields=$this->getFieldsDefinition();
+        
+        $fields['info']=$this->text();
+        
+        $fields['lk_guid']=$this->char(36);
+        
         $fields['lng']=$this->char(40);
         $fields['lat']=$this->char(40);
         
@@ -17,6 +22,11 @@ class m181102_085516_create_agent_table extends EntityMigrationHelper
         
         $fields['phone']=$this->text();
         $fields['email']=$this->text();
+        
+        $fields['flag_is_license']="ENUM('Y','N') NOT NULL";
+        $fields['flag_is_onw']="ENUM('Y','N') NOT NULL";
+        $fields['flag_is_public']="ENUM('Y','N') NOT NULL";
+        $fields['flag_is_need_to_custom']="ENUM('Y','N') NOT NULL";
         
         $this->createTable($this->table, $fields);
     }
