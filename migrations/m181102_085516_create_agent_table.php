@@ -20,11 +20,16 @@ class m181102_085516_create_agent_table extends EntityMigrationHelper
         $fields['lk_address']=$this->text();
         $fields['custom_address']=$this->text();
         
+        $fields['manager_in_charge']=$this->text();
+        
+        $fields['_region__id']=$this->integer();
+        $fields['_settlement__id']=$this->integer();
+        
         $fields['phone']=$this->text();
         $fields['email']=$this->text();
         
         $fields['flag_is_license']="ENUM('Y','N') NOT NULL";
-        $fields['flag_is_onw']="ENUM('Y','N') NOT NULL";
+        $fields['flag_is_own']="ENUM('Y','N') NOT NULL";
         $fields['flag_is_public']="ENUM('Y','N') NOT NULL";
         $fields['flag_is_need_to_custom']="ENUM('Y','N') NOT NULL";
         

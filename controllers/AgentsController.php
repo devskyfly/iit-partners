@@ -1,9 +1,12 @@
 <?php
-namespace app\controllers\moduleIitAgentsInfo;
+namespace devskyfly\yiiModuleIitAgentsInfo\controllers;
 
 use devskyfly\yiiModuleAdminPanel\controllers\AbstractContentPanelController;
 use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
+
 use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
+use devskyfly\yiiModuleIitAgentsInfo\models\Region;
+use devskyfly\yiiModuleIitAgentsInfo\models\Settlement;
 
 class AgentsController extends AbstractContentPanelController
 {
@@ -14,7 +17,7 @@ class AgentsController extends AbstractContentPanelController
      */
     public static function sectionCls()
     {
-        //Если иерархичность не требуется, товместо названия класса можно передать null
+        //Если иерархичность не требуется, то вместо названия класса можно передать null
         return null;
     }
     
@@ -42,16 +45,34 @@ class AgentsController extends AbstractContentPanelController
                     "label"=>"main",
                     "content"=>
                     $form->field($item,'name')
-                    .ItemSelector::widget([
+                     .ItemSelector::widget([
                         "form"=>$form,
                         "master_item"=>$item,
-                        "slave_item_cls"=>$item::sectionCls(),
-                        "property"=>"_section__id"
+                        "slave_item_cls"=>Region::class,
+                        "property"=>"_region__id"
+                    ])
+                     .ItemSelector::widget([
+                        "form"=>$form,
+                        "master_item"=>$item,
+                        "slave_item_cls"=>Settlement::class,
+                        "property"=>"_settlement__id"
                     ])
                     .$form->field($item,'create_date_time')
                     .$form->field($item,'change_date_time')
                     .$form->field($item,'active')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
-                ],
+                    .$form->field($item,'flag_is_license')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
+                    .$form->field($item,'flag_is_own')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
+                    .$form->field($item,'flag_is_public')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
+                    .$form->field($item,'flag_is_need_to_custom')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
+                    .$form->field($item,'phone')
+                    .$form->field($item,'email')
+                    .$form->field($item,'lat')
+                    .$form->field($item,'lng')
+                    .$form->field($item,'manager_in_charge')
+                    .$form->field($item,'info')->textarea(['rows'=>5])
+                    
+                    
+            ],
                 
             ];
         };

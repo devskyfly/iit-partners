@@ -7,9 +7,10 @@ use yii\helpers\ArrayHelper;
 /**
  * 
  * @author devskyfly
- * @property string $str_nmb
+ * 
+ * @property string $type
  */
-class Region extends AbstractEntity
+class Settlement extends AbstractEntity
 {
     protected static function sectionCls()
     {
@@ -25,7 +26,7 @@ class Region extends AbstractEntity
     {
         $parent_rules=parent::rules();
         $new_rules=[
-            [['str_nmb'],'string']
+            [['type'],'string']
         ];
         
         return ArrayHelper::merge($parent_rules, $new_rules);
@@ -33,6 +34,6 @@ class Region extends AbstractEntity
     
     public static function selectListRoute()
     {
-        return "regions/entity-select-list";
+        return "settlements/entity-select-list";
     }
 }

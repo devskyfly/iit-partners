@@ -1,8 +1,9 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo;
+namespace devskyfly\yiiModuleIitAgentsInfo\controllers;
 
 use devskyfly\yiiModuleAdminPanel\controllers\AbstractContentPanelController;
 use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
+
 use devskyfly\yiiModuleIitAgentsInfo\models\Region;
 
 class RegionsController extends AbstractContentPanelController
@@ -14,7 +15,7 @@ class RegionsController extends AbstractContentPanelController
      */
     public static function sectionCls()
     {
-        //Если иерархичность не требуется, товместо названия класса можно передать null
+        //Если иерархичность не требуется, то вместо названия класса можно передать null
         return null;
     }
     
@@ -41,16 +42,12 @@ class RegionsController extends AbstractContentPanelController
                 [
                     "label"=>"main",
                     "content"=>
-                    $form->field($item,'name')
-                    .ItemSelector::widget([
-                        "form"=>$form,
-                        "master_item"=>$item,
-                        "slave_item_cls"=>$item::sectionCls(),
-                        "property"=>"_section__id"
-                    ])
+                     $form->field($item,'name')
                     .$form->field($item,'create_date_time')
                     .$form->field($item,'change_date_time')
                     .$form->field($item,'active')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
+                    .$form->field($item,'str_nmb')
+                    
                 ],
                 
             ];
