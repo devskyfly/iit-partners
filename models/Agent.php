@@ -28,6 +28,10 @@ use yii\helpers\ArrayHelper;
  */
 class Agent extends AbstractEntity
 {
+    /**********************************************************************/
+    /** Implementation **/
+    /**********************************************************************/
+    
     protected static function sectionCls()
     {
         return null;
@@ -53,5 +57,21 @@ class Agent extends AbstractEntity
         ];
         
         return ArrayHelper::merge($parent_rules, $new_rules);
+    }
+    
+    /**********************************************************************/
+    /** Extension **/
+    /**********************************************************************/
+    
+    /**
+     * Returm agent record by guid
+     *
+     * @param string $guid
+     *
+     * @return AbstractEntity | null
+     */
+    public static function findByGuid($guid)
+    {
+        return static::find()->where(['lk_guid'=>$guid])->one();
     }
 }

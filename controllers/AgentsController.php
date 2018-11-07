@@ -7,6 +7,7 @@ use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
 use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
 use devskyfly\yiiModuleIitAgentsInfo\models\Region;
 use devskyfly\yiiModuleIitAgentsInfo\models\Settlement;
+use devskyfly\yiiModuleIitAgentsInfo\tools\AgentUpdater;
 
 class AgentsController extends AbstractContentPanelController
 {
@@ -97,5 +98,4 @@ class AgentsController extends AbstractContentPanelController
     {
         return "Агенты";
     }
-    
 }

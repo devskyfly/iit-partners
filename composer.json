@@ -12,7 +12,8 @@
 		"devskyfly/php56" : "dev-dev",
 		"devskyfly/yii-module-admin-panel" : "dev-dev",
 		"yiisoft/yii2" : "^2.0@dev",
-		"yiisoft/yii2-gii" : "^2.0@dev"
+		"yiisoft/yii2-gii" : "^2.0@dev",
+		"yiisoft/yii2-httpclient": "^2.0@dev"
 	},
 	"minimum-stability" : "dev",
 	"autoload" : {

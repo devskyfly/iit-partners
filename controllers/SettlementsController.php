@@ -48,11 +48,12 @@ class SettlementsController extends AbstractContentPanelController
                     .$form->field($item,'active')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
                     .$form->field($item,'type')->dropDownList([
                         'NOT_DEFINED'=>'Не определено',
-                        'STAN'=>'Станица',
-                        'CITY'=>'Город',
-                        'COUNTRY'=>'Деревня',
-                        'SETTLEMENT'=>'Поселок',
-                        'SETTLEMENT_TOWN'=>'Поселок гор. типа'])
+                        'GOROD'=>'Город',
+                        'STANICA'=>'Станица',
+                        'SELO'=>'Село',
+                        'XUTOR'=>'Хутор',
+                        'POS'=>'Поселок',
+                        'PGT'=>'Пгт'])
                 ],
                 
             ];
