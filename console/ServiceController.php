@@ -16,6 +16,7 @@ class ServiceController extends Controller
         try {
             $Updater=new AgentUpdater();
             $result=$Updater->update();
+            $result=$Updater->clear();
         }catch(\Exception $e){
             BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
             return -1;

@@ -7,7 +7,6 @@ use devskyfly\yiiModuleIitAgentsInfo\models\Region;
 use Yii;
 use yii\base\BaseObject;
 use yii\httpclient\Client;
-use yii\helpers\Json;
 use yii\helpers\BaseConsole;
 use devskyfly\yiiModuleIitAgentsInfo\models\Settlement;
 
@@ -31,6 +30,11 @@ class AgentUpdater extends BaseObject
      */
     protected $status=null;
     
+    /**
+     * 
+     */
+    protected $lk_agents=[];
+    
     public function init()
     {
         $this->status=new Status();
@@ -42,15 +46,50 @@ class AgentUpdater extends BaseObject
         }
         
         $this->initClient();
+        
+        $request=$this->createRequest();
+        $response=$request->send();
+        $this->lk_agents=$response->getData();
+    }
+    
+    public function clear()
+    {
+        $lk_agents=$this->lk_agents;
+        $db=Yii::$app->db;
+        $transaction=$db->beginTransaction();
+        try{
+            $query=Agent::find();
+            
+            foreach ($query->each(10) as $agent){
+                $match=false;
+                foreach ($lk_agents as $lk_agent_item){
+                    if($lk_agent_item['guid']==$agent->lk_guid){
+                        $match=true;
+                        break;
+                    }
+                }
+                if(!$match){
+                    $this->status->addDeleteItem(['name'=>$agent->name,'guid'=>$agent->lk_guid]);
+                    $agent->deleteLikeItem();
+                }
+            }
+            
+        }catch(\Exception $e){
+            $transaction->rollBack();
+            BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
+            
+        }catch (\Throwable $e){
+            $transaction->rollBack();
+            BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
+            
+        }
+        $transaction->commit();
+        return ['status'=>$this->status->getStrInfo()];
     }
     
     public function update()
     {
-        
-        
-        $request=$this->createRequest();
-        $response=$request->send();
-        $agents=$response->getData();
+        $agents=$this->lk_agents;
         $db=Yii::$app->db;
         $transaction=$db->beginTransaction();
         
