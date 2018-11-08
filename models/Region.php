@@ -1,6 +1,7 @@
 <?php
 namespace devskyfly\yiiModuleIitAgentsInfo\models;
 
+use devskyfly\php56\types\Str;
 use devskyfly\yiiModuleAdminPanel\models\contentPanel\AbstractEntity;
 use yii\helpers\ArrayHelper;
 
@@ -11,6 +12,10 @@ use yii\helpers\ArrayHelper;
  */
 class Region extends AbstractEntity
 {
+    /**********************************************************************/
+    /** Implementation **/
+    /**********************************************************************/
+    
     protected static function sectionCls()
     {
         return null;
@@ -34,5 +39,27 @@ class Region extends AbstractEntity
     public static function selectListRoute()
     {
         return "regions/entity-select-list";
+    }
+    
+    /**********************************************************************/
+    /** Extension **/
+    /**********************************************************************/
+    
+    /**
+     * 
+     * @param string $nmb
+     * @return Region|NULL
+     */
+    public static function findByStrNmb($nmb)
+    {
+        if(!Str::isString($nmb)){
+            throw new \InvalidArgumentException('Param $nmb is not string type.');
+        }
+        
+        if(mb_strlen($nmb)!=2){
+            throw new \InvalidArgumentException('Param $nmb is 2 simbole length.');
+        }
+        
+       return static::find()->where(['str_nmb'=>$nmb])->one();
     }
 }
