@@ -1,5 +1,5 @@
 {
-	"name" : "devskyfly/iit-agents-info",
+	"name" : "devskyfly/yii-module-iit-agents-info",
 	"type" : "module",
 	"license" : "MIT",
 	"authors" : [{
@@ -13,7 +13,7 @@
 		"devskyfly/yii-module-admin-panel" : "dev-dev",
 		"yiisoft/yii2" : "^2.0@dev",
 		"yiisoft/yii2-gii" : "^2.0@dev",
-		"yiisoft/yii2-httpclient": "^2.0@dev"
+		"yiisoft/yii2-httpclient" : "^2.0@dev"
 	},
 	"minimum-stability" : "dev",
 	"autoload" : {
