@@ -131,20 +131,20 @@ class AgentUpdater extends BaseObject
      */
     protected function addAgent($data)
     {
-        if($this->module->upload_public_agents){
+        /* if($this->module->upload_public_agents){
             if($data['point_type']!=8){
                 return;
             }
-        }
+        } */
         
-        if($data['blocked']==true){
+        /* if($data['blocked']==true){
             return;
-        }
+        } */
         
         $error_info=[];
         
         $model=new Agent();
-        $model->active='Y';
+        $model->active=$data['blocked']==true?'Y':'N';
         $model->initCreateAndChangeDateTime();
         $model->name=$data['title'];
         
@@ -247,28 +247,15 @@ class AgentUpdater extends BaseObject
             $model->flag_is_license=$data['point_licensee_type']==16?'Y':'N';
             $info[]=['Изменился тип лицензии.'];
             $modifined=$modifined||true;
-            
-            if($this->module->upload_public_agents){
-                if($data['point_type']!=16){
-                    $this->status->addDeleteItem([
-                        'name'=>$model->name,
-                        'guid'=>$model->lk_guid
-                    ]);
-                    $model->deleteLikeItem();
-                    return;
-                }
-            }   
         }
         
-        if($data['blocked']==true){
-            $this->status->addDeleteItem([
-                'name'=>$model->name,
-                'guid'=>$model->lk_guid
-            ]);
-            $model->deleteLikeItem();
-            return;
-        }
+        $active=$model->active=='Y'?true:false;
         
+        if($data['blocked']!=$active){
+            $model->active=$data['blocked']?'Y':'N';
+            $info[]=['Изменилась активность.'];
+            $modifined=$modifined||true;
+        }
         
         if($model->name!=$data['title']){
             $model->name=$data['title'];

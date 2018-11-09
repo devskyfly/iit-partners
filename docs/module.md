@@ -16,7 +16,6 @@
 
 ### Настройки модуля
 
- * $upload_public_agents - boolean указывает какие типы агентов загружать
  * $lk_login="" - логин доступа к api LK
  * $lk_pass="" - пароль доступа к api LK
  * $lk_url="" - url метода api LK
