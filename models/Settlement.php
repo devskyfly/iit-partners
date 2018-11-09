@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
  * @author devskyfly
  * 
  * @property string $type
+ * @property number $_region__id
  */
 class Settlement extends AbstractEntity
 {
@@ -49,8 +50,10 @@ class Settlement extends AbstractEntity
     public function rules()
     {
         $parent_rules=parent::rules();
+        
         $new_rules=[
-            [['type'],'string']
+            [['type'],'string'],
+            [['_region__id'],'number']
         ];
         
         return ArrayHelper::merge($parent_rules, $new_rules);

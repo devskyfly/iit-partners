@@ -144,7 +144,7 @@ class AgentUpdater extends BaseObject
         $error_info=[];
         
         $model=new Agent();
-        $model->active=$data['blocked']==true?'Y':'N';
+        $model->active=$data['blocked']==1?'N':'Y';
         $model->initCreateAndChangeDateTime();
         $model->name=$data['title'];
         
@@ -201,6 +201,11 @@ class AgentUpdater extends BaseObject
                 $settlement->enableActive();
                 $settlement->name=$parse_result['name'];
                 $settlement->type=$parse_result['type'];
+                
+                if($region){
+                    $settlement->_region__id=$region->id;
+                }
+                
                 if(!$settlement->insertLikeItem()){
                     throw new \Exception('Can\'t insert Settlement item. '.PHP_EOL.print_r($settlement->errors,true));
                 }
@@ -234,6 +239,7 @@ class AgentUpdater extends BaseObject
      */
     protected function updateAgent(Agent $model,$data)
     {
+        
         $info=[];
         $error_info=[];
         
@@ -249,10 +255,10 @@ class AgentUpdater extends BaseObject
             $modifined=$modifined||true;
         }
         
-        $active=$model->active=='Y'?true:false;
+        $active=$model->active=='Y'?'':'1';
         
         if($data['blocked']!=$active){
-            $model->active=$data['blocked']?'Y':'N';
+            $model->active=$data['blocked']==1?'N':'Y';
             $info[]=['Изменилась активность.'];
             $modifined=$modifined||true;
         }

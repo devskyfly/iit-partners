@@ -11,6 +11,7 @@ class m181102_085600_create_settlement_table extends EntityMigrationHelper
         $fields=$this->getFieldsDefinition();
         $fields['str_nmb']=$this->char(2);
         $fields['type']="ENUM('NOT_DEFINED','GOROD','STANICA','SELO','XUTOR','POS','PGT') NOT NULL";
+        $fields['_region__id']=$this->integer(11);
         $this->createTable($this->table, $fields);
     }
 
