@@ -136,6 +136,11 @@ class AgentUpdater extends BaseObject
                 return;
             }
         }
+        
+        if($data['blocked']==true){
+            return;
+        }
+        
         $error_info=[];
         
         $model=new Agent();
@@ -164,6 +169,8 @@ class AgentUpdater extends BaseObject
         
         $model->flag_is_license=$data['point_licensee_type']==16?'Y':'N';
         $model->flag_is_public=$data['point_type']==8?'Y':'N';
+        
+        $model->partner_code=$data['partner_code'];
         
         /**********************************************************************/
         /** Region **/
@@ -248,11 +255,20 @@ class AgentUpdater extends BaseObject
                         'guid'=>$model->lk_guid
                     ]);
                     $model->deleteLikeItem();
+                    return;
                 }
-            }
-            
-            
+            }   
         }
+        
+        if($data['blocked']==true){
+            $this->status->addDeleteItem([
+                'name'=>$model->name,
+                'guid'=>$model->lk_guid
+            ]);
+            $model->deleteLikeItem();
+            return;
+        }
+        
         
         if($model->name!=$data['title']){
             $model->name=$data['title'];
@@ -294,6 +310,12 @@ class AgentUpdater extends BaseObject
         if($model->lat!=$data['latitude']){
             $model->lat=$data['latitude'];
             $info[]=['Изменилась широта.'];
+            $modifined=$modifined||true;
+        }
+        
+        if($model->partner_code!=$data['partner_code']){
+            $model->partner_code=$data['partner_code'];
+            $info[]=['Изменился партнер код.'];
             $modifined=$modifined||true;
         }
         

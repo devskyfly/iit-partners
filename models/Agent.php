@@ -28,6 +28,8 @@ use yii\helpers\ArrayHelper;
  * 
  * @property string $_region__id
  * @property string $_settlement__id
+ 
+ * @property string $partner_code
  */
 class Agent extends AbstractEntity
 {
@@ -56,7 +58,8 @@ class Agent extends AbstractEntity
             [['manager_in_charge'],'string'],
             [['phone','email'],'string'],
             [['_region__id','_settlement__id'],'integer'],
-            [['flag_is_license','flag_is_own','flag_is_public','flag_is_need_to_custom'],'string']
+            [['flag_is_license','flag_is_own','flag_is_public','flag_is_need_to_custom'],'string'],
+            [['partner_code'],'string']
         ];
         
         return ArrayHelper::merge($parent_rules, $new_rules);

@@ -33,6 +33,8 @@ class m181102_085516_create_agent_table extends EntityMigrationHelper
         $fields['flag_is_public']="ENUM('Y','N') NOT NULL";
         $fields['flag_is_need_to_custom']="ENUM('Y','N') NOT NULL";
         
+        $fields['partner_code']=$this->char(200);
+        
         $this->createTable($this->table, $fields);
     }
 
