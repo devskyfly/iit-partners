@@ -80,4 +80,13 @@ class Agent extends AbstractEntity
     {
         return static::find()->where(['lk_guid'=>$guid])->one();
     }
+    
+    /**********************************************************************/
+    /** Queries **/
+    /**********************************************************************/
+    
+    public function queryAllActivePublic()
+    {
+        return static::find()->andWhere(['active'=>'Y','public'=>Y]);
+    }
 }
