@@ -1,10 +1,10 @@
 <?php
 
-use devskyfly\yiiModuleAdminPanel\migrations\helpers\EntityMigrationHelper;
+use devskyfly\yiiModuleAdminPanel\migrations\helpers\contentPanel\ExtensionMigrationHelper;
 use yii\helpers\Json;
 use devskyfly\yiiModuleIitAgentsInfo\models\Region;
 
-class m181102_085531_create_region_table extends EntityMigrationHelper
+class m181102_085531_create_region_table extends ExtensionMigrationHelper
 {
     public $table="region";
     

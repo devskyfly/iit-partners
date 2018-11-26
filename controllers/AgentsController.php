@@ -1,7 +1,7 @@
 <?php
 namespace devskyfly\yiiModuleIitAgentsInfo\controllers;
 
-use devskyfly\yiiModuleAdminPanel\controllers\AbstractContentPanelController;
+use devskyfly\yiiModuleAdminPanel\controllers\contentPanel\AbstractContentPanelController;
 use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
 
 use devskyfly\yiiModuleIitAgentsInfo\models\Agent;

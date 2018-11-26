@@ -1,8 +1,8 @@
 <?php
 
-use devskyfly\yiiModuleAdminPanel\migrations\helpers\EntityMigrationHelper;
+use devskyfly\yiiModuleAdminPanel\migrations\helpers\contentPanel\ExtensionMigrationHelper;
 
-class m181102_085516_create_agent_table extends EntityMigrationHelper
+class m181102_085516_create_agent_table extends ExtensionMigrationHelper
 {
     public $table="agent";
     
