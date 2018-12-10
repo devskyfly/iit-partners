@@ -10,7 +10,7 @@
 	"require" : {
 		"php" : ">=5.6.0",
 		"devskyfly/php56" : "0.0.*",
-		"devskyfly/yii-module-admin-panel" : "^2.0.0 || dev-dev",
+		"devskyfly/yii-module-admin-panel" : "dev-dev||^2.0.0 ",
 		"yiisoft/yii2" : "^2.0",
 		"yiisoft/yii2-gii" : "^2.0",
 		"yiisoft/yii2-httpclient" : "^2.0"
