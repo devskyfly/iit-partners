@@ -1,8 +1,8 @@
 <?php
 
-use devskyfly\yiiModuleAdminPanel\migrations\helpers\contentPanel\ExtensionMigrationHelper;
+use devskyfly\yiiModuleAdminPanel\migrations\helpers\contentPanel\EntityMigrationHelper;
 
-class m181102_085600_create_settlement_table extends ExtensionMigrationHelper
+class m181102_085600_create_settlement_table extends EntityMigrationHelper
 {
     public $table="settlement";
     
