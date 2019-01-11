@@ -62,4 +62,13 @@ class Region extends AbstractEntity
         
        return static::find()->where(['str_nmb'=>$nmb])->one();
     }
+    
+    /**********************************************************************/
+    /** Redeclaration **/
+    /**********************************************************************/
+    
+    public static function tableName()
+    {
+        return "iit_partners_region";
+    }
 }

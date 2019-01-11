@@ -4,7 +4,7 @@ use devskyfly\yiiModuleAdminPanel\migrations\helpers\contentPanel\EntityMigratio
 
 class m181102_085600_create_settlement_table extends EntityMigrationHelper
 {
-    public $table="settlement";
+    public $table="iit_partners_settlement";
     
     public function up()
     {

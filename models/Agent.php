@@ -89,4 +89,13 @@ class Agent extends AbstractEntity
     {
         return static::find()->andWhere(['active'=>'Y','public'=>Y]);
     }
+    
+    /**********************************************************************/
+    /** Redeclaration **/
+    /**********************************************************************/
+    
+    public static function tableName()
+    {
+        return "iit_partners_agent";
+    }
 }

@@ -136,4 +136,13 @@ class Settlement extends AbstractEntity
             return false;
         }
     }
+    
+    /**********************************************************************/
+    /** Redeclaration **/
+    /**********************************************************************/
+    
+    public static function tableName()
+    {
+        return "iit_partners_settlement";
+    }
 }

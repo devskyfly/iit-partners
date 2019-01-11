@@ -4,7 +4,7 @@ use devskyfly\yiiModuleAdminPanel\migrations\helpers\contentPanel\EntityMigratio
 
 class m181102_085516_create_agent_table extends EntityMigrationHelper
 {
-    public $table="agent";
+    public $table="iit_partners_agent";
     
     public function up()
     {

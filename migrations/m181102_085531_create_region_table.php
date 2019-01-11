@@ -6,7 +6,7 @@ use devskyfly\yiiModuleIitAgentsInfo\models\Region;
 
 class m181102_085531_create_region_table extends EntityMigrationHelper
 {
-    public $table="region";
+    public $table="iit_partners_region";
     
     public function up()
     {
