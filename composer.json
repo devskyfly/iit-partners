@@ -9,8 +9,8 @@
 	],
 	"require" : {
 		"php" : ">=5.6.0",
-		"devskyfly/php56" : "0.0.*",
-		"devskyfly/yii-module-admin-panel" : "dev-dev",
+		"devskyfly/php56" : ">0.0.1",
+		"devskyfly/yii-module-admin-panel" : ">0.0.1",
 		"yiisoft/yii2" : "^2.0",
 		"yiisoft/yii2-gii" : "^2.0",
 		"yiisoft/yii2-httpclient" : "^2.0"
