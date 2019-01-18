@@ -5,6 +5,8 @@ use devskyfly\php56\types\Lgc;
 use devskyfly\php56\types\Str;
 use devskyfly\php56\types\Vrbl;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class Module extends \yii\base\Module
 {
@@ -33,6 +35,24 @@ class Module extends \yii\base\Module
          if(Yii::$app instanceof \yii\console\Application){
              $this->controllerNamespace='devskyfly\yiiModuleIitAgentsInfo\console';
          }
+     }
+     
+     public function behaviors()
+     {
+         return [
+             'access' => [
+                 'class' => AccessControl::className(),
+                 'except'=>[
+                     'rest/*/*',
+                 ],
+                 'rules' => [
+                      [
+                         'allow' => true,
+                         'roles' => ['@'],
+                     ], 
+                 ],
+             ]
+         ];
      }
      
      protected function checkProperties()
