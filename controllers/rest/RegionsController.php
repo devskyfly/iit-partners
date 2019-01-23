@@ -26,6 +26,7 @@ class RegionsController extends CommonController
         
         $query=Region::find()->where(['active'=>'Y','id'=>$region_ids])->orderBy(['name'=>SORT_ASC]);;
         $fields=[
+            "id"=>"id",
             "name"=>"name",
             "str_nmb"=>"code"
         ];
