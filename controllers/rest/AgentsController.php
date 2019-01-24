@@ -4,11 +4,18 @@ namespace devskyfly\yiiModuleIitAgentsInfo\controllers\rest;
 use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
 use devskyfly\yiiModuleIitAgentsInfo\models\Region;
 use yii\rest\Controller;
+use devskyfly\php56\types\Nmbr;
+use yii\web\NotFoundHttpException;
+use yii\web\BadRequestHttpException;
 
 class AgentsController extends CommonController
 {
     public function actionIndex($license="N")
     {
+       if(!in_array($license, ['Y','N'])){
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+       }
+       
        $data=[];
        $model_cls=Agent::class;
        $list=$model_cls::find()
@@ -38,6 +45,7 @@ class AgentsController extends CommonController
            "lat"=>"latitude",
            "email"=>"email",
            "phone"=>"phone",
+           "custom_address"=>"address"
        ];
        
        $callback=function($item,$arr_item){
@@ -49,5 +57,55 @@ class AgentsController extends CommonController
        };
        
        $this->asJson($this->formData($query, $fields, $callback)); 
+    }
+    
+    public function actionGetNearest($lng,$lat,$license="N")
+    {
+        if(!in_array($license, ['Y','N'])){
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
+        $lng=Nmbr::toDoubleStrict($lng);
+        $lat=Nmbr::toDoubleStrict($lat);
+        
+        $agents=Agent::find()
+        ->where(['active'=>'Y','flag_is_public'=>'Y','flag_is_license'=>$license])
+        ->all();
+        
+        $sort_fn=function($a, $b)
+        {
+            if ($a['del'] == $b['del']) {
+                return 0;
+            }
+            return ($a['del'] < $b['del']) ? -1 : 1;
+        };
+        
+        $arr=[];
+        foreach ($agents as $agent){
+            $arr[]=[
+                'link'=>$agent,
+                'lng'=>$agent->lng,
+                'lat'=>$agent->lat,
+                'del'=>sqrt(pow($lng-$agent->lng,2)+pow($lat-$agent->lat,2))
+            ];
+        }
+        
+        usort($arr, $sort_fn);
+        
+        if(!isset($arr[0])){
+            throw NotFoundHttpException();
+        }      
+        $item=$arr[0]['link'];
+        $result=[
+            "title"=>$item->name,
+            "guid"=>$item->lk_guid,
+            "license"=>$item->flag_is_license,
+            "is_own"=>$item->flag_is_own,
+            "longitude"=>$item->lng,
+            "latitude"=>$item->lat,
+            "email"=>$item->email,
+            "phone"=>$item->phone,
+            "address"=>$item->custom_address
+        ];
+        $this->asJson($result);
     }
 }

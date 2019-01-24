@@ -26,7 +26,7 @@ class CommonController extends Controller
      * @param ActiveQuery $query
      * @param [] $fields - where keys are model fields names and values are json fields names
      * @param callable $callback - customize
-     * @return string
+     * @return []
      */
     public function formData(ActiveQuery $query,$fields,$callback=null){
         $arr=[];

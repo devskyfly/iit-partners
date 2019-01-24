@@ -2,6 +2,7 @@
 namespace devskyfly\yiiModuleIitAgentsInfo\controllers\rest;
 
 use yii\rest\Controller;
+use yii\web\BadRequestHttpException;
 use devskyfly\php56\types\Arr;
 use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
 use devskyfly\yiiModuleIitAgentsInfo\models\Region;
@@ -12,6 +13,10 @@ class SettlementsController extends CommonController
     public function actionIndex($license="N")
     {
         $data=[];
+        
+        if(!in_array($license, ['Y','N'])){
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
         
         if($license=="Y"){
             $query=Agent::find()->where(['active'=>'Y','flag_is_public'=>'Y','flag_is_license'=>'Y']);
