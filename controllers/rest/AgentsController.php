@@ -5,6 +5,7 @@ use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
 use devskyfly\yiiModuleIitAgentsInfo\models\Region;
 use yii\rest\Controller;
 use devskyfly\php56\types\Nmbr;
+use devskyfly\php56\types\Str;
 use yii\web\NotFoundHttpException;
 use yii\web\BadRequestHttpException;
 
@@ -45,7 +46,8 @@ class AgentsController extends CommonController
            "lat"=>"latitude",
            "email"=>"email",
            "phone"=>"phone",
-           "custom_address"=>"address"
+           "custom_address"=>"address",
+           "_settlement__id"=>"settlement_id"
        ];
        
        $callback=function($item,$arr_item){
@@ -53,6 +55,7 @@ class AgentsController extends CommonController
            $region_id=$item->_region__id;
            $region=Region::find()->where(['id'=>$region_id])->one();
            $arr_item['region_id']=$region->str_nmb;
+           $arr_item['settlement_id']=Str::toString($item['_settlement__id']);
            return $arr_item;
        };
        
