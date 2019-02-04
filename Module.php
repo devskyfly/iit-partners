@@ -39,7 +39,7 @@ class Module extends \yii\base\Module
      
      public function behaviors()
      {
-         if(!Yii::$app instanceof \yii\console\Application){
+         if(!(Yii::$app instanceof \yii\console\Application)){
              return [
                  'access' => [
                      'class' => AccessControl::className(),
@@ -55,7 +55,7 @@ class Module extends \yii\base\Module
                  ]
              ];
          }else{
-             return false;
+             return [];
          }
      }
      
