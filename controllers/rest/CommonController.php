@@ -4,11 +4,26 @@ namespace devskyfly\yiiModuleIitAgentsInfo\controllers\rest;
 use devskyfly\php56\types\Arr;
 use devskyfly\php56\types\Vrbl;
 use yii\db\ActiveQuery;
+use yii\filters\Cors;
+use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
 
 
 class CommonController extends Controller
 {
+    public function behaviors()
+    {
+        return ArrayHelper::merge([
+            [
+                'class' => Cors::className(),
+                'cors' => [
+                    'Origin' => ['*'],
+                    'Access-Control-Request-Method' => ['*'],
+                ],
+            ],
+        ], parent::behaviors());
+    }
+    
     /**
      *
      * @param ActiveQuery $query
