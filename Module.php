@@ -39,20 +39,24 @@ class Module extends \yii\base\Module
      
      public function behaviors()
      {
-         return [
-             'access' => [
-                 'class' => AccessControl::className(),
-                 'except'=>[
-                     'rest/*/*',
-                 ],
-                 'rules' => [
-                      [
-                         'allow' => true,
-                         'roles' => ['@'],
-                     ], 
-                 ],
-             ]
-         ];
+         if(!Yii::$app instanceof \yii\console\Application){
+             return [
+                 'access' => [
+                     'class' => AccessControl::className(),
+                     'except'=>[
+                         'rest/*/*',
+                     ],
+                     'rules' => [
+                          [
+                             'allow' => true,
+                             'roles' => ['@'],
+                         ], 
+                     ],
+                 ]
+             ];
+         }else{
+             return false;
+         }
      }
      
      protected function checkProperties()
