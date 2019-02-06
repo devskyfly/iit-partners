@@ -2,7 +2,8 @@
 /* $this yii/web/view */
 /* $list []*/
 /* $title string */
-use app\widgets\NavigationMenu;
+use devskyfly\yiiModuleAdminPanel\widgets\common\NavigationMenu;
+
 ?>
 
 <?
