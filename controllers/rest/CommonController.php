@@ -1,5 +1,5 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\controllers\rest;
+namespace devskyfly\yiiModuleIitPartners\controllers\rest;
 
 use devskyfly\php56\types\Arr;
 use devskyfly\php56\types\Vrbl;

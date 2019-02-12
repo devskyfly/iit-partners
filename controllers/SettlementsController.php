@@ -1,11 +1,11 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\controllers;
+namespace devskyfly\yiiModuleIitPartners\controllers;
 
 use devskyfly\yiiModuleAdminPanel\controllers\contentPanel\AbstractContentPanelController;
 use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
 
-use devskyfly\yiiModuleIitAgentsInfo\models\Region;
-use devskyfly\yiiModuleIitAgentsInfo\models\Settlement;
+use devskyfly\yiiModuleIitPartners\models\Region;
+use devskyfly\yiiModuleIitPartners\models\Settlement;
 
 class SettlementsController extends AbstractContentPanelController
 {

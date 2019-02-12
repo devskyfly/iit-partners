@@ -2,7 +2,7 @@
 
 use devskyfly\yiiModuleAdminPanel\migrations\helpers\contentPanel\EntityMigrationHelper;
 use yii\helpers\Json;
-use devskyfly\yiiModuleIitAgentsInfo\models\Region;
+use devskyfly\yiiModuleIitPartners\models\Region;
 
 class m181102_085531_create_region_table extends EntityMigrationHelper
 {

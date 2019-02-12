@@ -1,5 +1,5 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo;
+namespace devskyfly\yiiModuleIitPartners;
 
 use devskyfly\php56\types\Lgc;
 use devskyfly\php56\types\Str;
@@ -33,7 +33,7 @@ class Module extends \yii\base\Module
          parent::init();
          $this->checkProperties();
          if(Yii::$app instanceof \yii\console\Application){
-             $this->controllerNamespace='devskyfly\yiiModuleIitAgentsInfo\console';
+             $this->controllerNamespace='devskyfly\yiiModuleIitPartners\console';
          }
      }
      

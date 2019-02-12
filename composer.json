@@ -1,5 +1,5 @@
 {
-	"name" : "devskyfly/yii-module-iit-agents-info",
+	"name" : "devskyfly/yii-module-iit-partners",
 	"type" : "module",
 	"license" : "MIT",
 	"authors" : [{
@@ -17,7 +17,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"devskyfly\\yiiModuleIitAgentsInfo\\" : ""
+			"devskyfly\\yiiModuleIitPartners\\" : ""
 		}
 	}
 }

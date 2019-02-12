@@ -1,14 +1,14 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\tools;
+namespace devskyfly\yiiModuleIitPartners\tools;
 
 use devskyfly\php56\types\Vrbl;
-use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
-use devskyfly\yiiModuleIitAgentsInfo\models\Region;
+use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\yiiModuleIitPartners\models\Region;
 use Yii;
 use yii\base\BaseObject;
 use yii\httpclient\Client;
 use yii\helpers\BaseConsole;
-use devskyfly\yiiModuleIitAgentsInfo\models\Settlement;
+use devskyfly\yiiModuleIitPartners\models\Settlement;
 
 class AgentUpdater extends BaseObject
 {

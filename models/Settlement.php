@@ -1,5 +1,5 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\models;
+namespace devskyfly\yiiModuleIitPartners\models;
 
 use devskyfly\php56\types\Str;
 use devskyfly\php56\types\Vrbl;

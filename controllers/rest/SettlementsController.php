@@ -1,12 +1,12 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\controllers\rest;
+namespace devskyfly\yiiModuleIitPartners\controllers\rest;
 
 use yii\rest\Controller;
 use yii\web\BadRequestHttpException;
 use devskyfly\php56\types\Arr;
-use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
-use devskyfly\yiiModuleIitAgentsInfo\models\Region;
-use devskyfly\yiiModuleIitAgentsInfo\models\Settlement;
+use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\yiiModuleIitPartners\models\Region;
+use devskyfly\yiiModuleIitPartners\models\Settlement;
 
 class SettlementsController extends CommonController
 {

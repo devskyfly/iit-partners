@@ -1,12 +1,11 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\console;
+namespace devskyfly\yiiModuleIitPartners\console;
 
 use devskyfly\php56\types\Vrbl;
-use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
-use devskyfly\yiiModuleIitAgentsInfo\models\Region;
-use devskyfly\yiiModuleIitAgentsInfo\models\Settlement;
-use devskyfly\yiiModuleIitAgentsInfo\tools\AgentUpdater;
-use devskyfly\yiiModuleIitAgentsInfo\tools\Status;
+use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\yiiModuleIitPartners\models\Region;
+use devskyfly\yiiModuleIitPartners\models\Settlement;
+use devskyfly\yiiModuleIitPartners\tools\Status;
 use Yii;
 use yii\console\Controller;
 use yii\helpers\BaseConsole;

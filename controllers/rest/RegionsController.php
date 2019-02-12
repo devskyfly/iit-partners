@@ -1,9 +1,9 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\controllers\rest;
+namespace devskyfly\yiiModuleIitPartners\controllers\rest;
 
 use devskyfly\php56\types\Arr;
-use devskyfly\yiiModuleIitAgentsInfo\models\Agent;
-use devskyfly\yiiModuleIitAgentsInfo\models\Region;
+use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\yiiModuleIitPartners\models\Region;
 use yii\rest\Controller;
 use yii\web\BadRequestHttpException;
 use yii\helpers\ArrayHelper;

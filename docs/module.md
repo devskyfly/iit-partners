@@ -5,8 +5,8 @@
 Модуль надо подключить как к web так и console.
 
 ```php
-'iit-agents-info'=>[
-    'class'=>'devskyfly\yiiModuleIitAgentsInfo\Module',
+'iit-partners'=>[
+    'class'=>'devskyfly\yiiModuleIitPartners\Module',
     'lk_login'=>'KozhevnikovA',
     'lk_pass'=>'8JxLkP4IQ2FV',
     'lk_url'=>'https://iitrust.lk/api/agent/points/dump/?format=json',

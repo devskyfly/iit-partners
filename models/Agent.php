@@ -1,5 +1,5 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\models;
+namespace devskyfly\yiiModuleIitPartners\models;
 
 use devskyfly\yiiModuleAdminPanel\models\contentPanel\AbstractEntity;
 use yii\helpers\ArrayHelper;

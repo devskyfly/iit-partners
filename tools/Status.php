@@ -1,5 +1,5 @@
 <?php
-namespace devskyfly\yiiModuleIitAgentsInfo\tools;
+namespace devskyfly\yiiModuleIitPartners\tools;
 
 use yii\base\BaseObject;
 
