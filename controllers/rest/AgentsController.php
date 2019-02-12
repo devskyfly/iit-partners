@@ -1,12 +1,10 @@
 <?php
 namespace devskyfly\yiiModuleIitPartners\controllers\rest;
 
-use devskyfly\yiiModuleIitPartners\models\Agent;
-use devskyfly\yiiModuleIitPartners\models\Region;
-use yii\rest\Controller;
 use devskyfly\php56\types\Nmbr;
 use devskyfly\php56\types\Str;
-use yii\web\NotFoundHttpException;
+use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\yiiModuleIitPartners\models\Region;
 use yii\web\BadRequestHttpException;
 
 class AgentsController extends CommonController
