@@ -31,7 +31,8 @@ class SettlementsController extends CommonController
         
         $fields=[
             "id"=>"id",
-            "name"=>"name"
+            "name"=>"name",
+            
         ];
         
         $callback=function($item,$arr_item){
@@ -39,6 +40,7 @@ class SettlementsController extends CommonController
             $region_id=$item->_region__id;
             $region=Region::find()->where(['id'=>$region_id])->one();
             $arr_item['region_id']=$region->str_nmb;
+            $arr_item['type']=Settlement::$hash_types[$item->type];
             return $arr_item;
         };
         
