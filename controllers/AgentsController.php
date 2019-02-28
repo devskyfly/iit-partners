@@ -5,6 +5,7 @@ use devskyfly\yiiModuleAdminPanel\controllers\contentPanel\AbstractContentPanelC
 use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
 
 use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\yiiModuleIitPartners\models\AgentFilter;
 use devskyfly\yiiModuleIitPartners\models\Region;
 use devskyfly\yiiModuleIitPartners\models\Settlement;
 use devskyfly\yiiModuleIitPartners\tools\AgentUpdater;
@@ -30,6 +31,11 @@ class AgentsController extends AbstractContentPanelController
     public static function entityCls()
     {
         return Agent::class;
+    }
+    
+    public static function entityFilterCls()
+    {
+        return AgentFilter::class;
     }
     
     /**

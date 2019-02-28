@@ -6,6 +6,7 @@ use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
 
 use devskyfly\yiiModuleIitPartners\models\Region;
 use devskyfly\yiiModuleIitPartners\models\Settlement;
+use devskyfly\yiiModuleIitPartners\models\SettlementFilter;
 
 class SettlementsController extends AbstractContentPanelController
 {
@@ -28,6 +29,11 @@ class SettlementsController extends AbstractContentPanelController
     public static function entityCls()
     {
         return Settlement::class;
+    }
+    
+    public static function entityFilterCls()
+    {
+        return SettlementFilter::class;
     }
     
     /**

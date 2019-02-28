@@ -5,6 +5,7 @@ use devskyfly\yiiModuleAdminPanel\controllers\contentPanel\AbstractContentPanelC
 use devskyfly\yiiModuleAdminPanel\widgets\contentPanel\ItemSelector;
 
 use devskyfly\yiiModuleIitPartners\models\Region;
+use devskyfly\yiiModuleIitPartners\models\RegionFilter;
 
 class RegionsController extends AbstractContentPanelController
 {
@@ -27,6 +28,11 @@ class RegionsController extends AbstractContentPanelController
     public static function entityCls()
     {
         return Region::class;
+    }
+    
+    public static function entityFilterCls()
+    {
+        return RegionFilter::class;
     }
     
     /**
