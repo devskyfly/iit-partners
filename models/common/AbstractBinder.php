@@ -1,5 +1,5 @@
 <?php
-namespace devskyfly\yiiModuleIitUc\models\common;
+namespace devskyfly\yiiModuleIitPartners\models\common;
 
 use devskyfly\yiiModuleAdminPanel\models\contentPanel\AbstractBinder as Binder;
 
