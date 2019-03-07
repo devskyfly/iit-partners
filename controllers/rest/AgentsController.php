@@ -1,39 +1,39 @@
 <?php
 namespace devskyfly\yiiModuleIitPartners\controllers\rest;
 
-use devskyfly\php56\types\Nmbr;
 use devskyfly\php56\types\Str;
-use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\php56\types\Vrbl;
 use devskyfly\yiiModuleIitPartners\models\Region;
+use devskyfly\yiiModuleIitPartners\models\Settlement;
+use devskyfly\yiiModuleIitPartners\components\AgentsManager;
 use yii\web\BadRequestHttpException;
 
 class AgentsController extends CommonController
 {
-    public function actionIndex($license="N")
+    public function actionIndex($license=null)
     {
-       if(!in_array($license, ['Y','N'])){
+       if(!in_array($license, ['Y','N',null])){
             throw new BadRequestHttpException('Query parameter $license is out of range.');
        }
        
-       $data=[];
-       $model_cls=Agent::class;
-       $list=$model_cls::find()
-       ->where(['active'=>'Y'])
-       ->all();
-       foreach ($list as $item){
-           $data[]=[
-               'id'=>$item->id,
-               'name'=>$item->name,
-           ];
-       }
+       $callback=function($item,$arr_item){
+           
+           $settlement=Settlement::getById($item['_settlement__id']);
+           if(Vrbl::isNull($settlement)){
+               throw new \InvalidArgumentException('Parameter $settlment is null.');
+           }
+           
+           $region_id=$settlement['_region__id'];
+           $region=Region::find()
+           ->where(['id'=>$region_id])
+           ->one();
+           
+           $arr_item['region_id']=$region->str_nmb;
+           $arr_item['settlement_id']=Str::toString($item['_settlement__id']);
+           return $arr_item;
+       };
        
-       
-       $a=1;
-       if($license=="Y"){
-           $query=Agent::find()->where(['active'=>'Y','flag_is_public'=>'Y','flag_is_license'=>'Y']);
-       }else{
-           $query=Agent::find()->where(['active'=>'Y','flag_is_public'=>'Y']);
-       }
+       $query=AgentsManager::getAll($license,'Y',false);
        
        $fields=[
            "name"=>"title",
@@ -48,54 +48,21 @@ class AgentsController extends CommonController
            "_settlement__id"=>"settlement_id"
        ];
        
-       $callback=function($item,$arr_item){
-           
-           $region_id=$item->_region__id;
-           $region=Region::find()->where(['id'=>$region_id])->one();
-           $arr_item['region_id']=$region->str_nmb;
-           $arr_item['settlement_id']=Str::toString($item['_settlement__id']);
-           return $arr_item;
-       };
-       
        $this->asJson($this->formData($query, $fields, $callback)); 
     }
     
-    public function actionGetNearest($lng,$lat,$license="N")
+    public function actionGetNearest($lng,$lat,$license=null)
     {
-        if(!in_array($license, ['Y','N'])){
+        if(!in_array($license, ['Y','N',null])){
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
-        $lng=Nmbr::toDoubleStrict($lng);
-        $lat=Nmbr::toDoubleStrict($lat);
         
-        $agents=Agent::find()
-        ->where(['active'=>'Y','flag_is_public'=>'Y','flag_is_license'=>$license])
-        ->all();
+        $nearest=AgentsManager::getNearest($lng, $lat, $license);
         
-        $sort_fn=function($a, $b)
-        {
-            if ($a['del'] == $b['del']) {
-                return 0;
-            }
-            return ($a['del'] < $b['del']) ? -1 : 1;
-        };
-        
-        $arr=[];
-        foreach ($agents as $agent){
-            $arr[]=[
-                'link'=>$agent,
-                'lng'=>$agent->lng,
-                'lat'=>$agent->lat,
-                'del'=>sqrt(pow($lng-$agent->lng,2)+pow($lat-$agent->lat,2))
-            ];
-        }
-        
-        usort($arr, $sort_fn);
-        
-        if(!isset($arr[0])){
+        if(Vrbl::isNull($nearest)){
             throw NotFoundHttpException();
         }      
-        $item=$arr[0]['link'];
+        $item=$nearest;
         $result=[
             "title"=>$item->name,
             "guid"=>$item->lk_guid,

@@ -25,10 +25,7 @@ use yii\helpers\ArrayHelper;
  * @property string $flag_is_need_to_custom
  * 
  * @property string $manager_in_charge
- * 
- * @property string $_region__id
  * @property string $_settlement__id
- 
  * @property string $partner_code
  */
 class Agent extends AbstractEntity
@@ -57,7 +54,7 @@ class Agent extends AbstractEntity
             [['lk_address','custom_address'],'string'],
             [['manager_in_charge'],'string'],
             [['phone','email'],'string'],
-            [['_region__id','_settlement__id'],'integer'],
+            [['_settlement__id'],'integer'],
             [['flag_is_license','flag_is_own','flag_is_public','flag_is_need_to_custom'],'string'],
             [['partner_code'],'string']
         ];

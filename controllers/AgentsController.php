@@ -55,12 +55,6 @@ class AgentsController extends AbstractContentPanelController
                      .ItemSelector::widget([
                         "form"=>$form,
                         "master_item"=>$item,
-                        "slave_item_cls"=>Region::class,
-                        "property"=>"_region__id"
-                    ])
-                     .ItemSelector::widget([
-                        "form"=>$form,
-                        "master_item"=>$item,
                         "slave_item_cls"=>Settlement::class,
                         "property"=>"_settlement__id"
                     ])
@@ -72,6 +66,8 @@ class AgentsController extends AbstractContentPanelController
                     .$form->field($item,'flag_is_own')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
                     .$form->field($item,'flag_is_public')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
                     .$form->field($item,'flag_is_need_to_custom')->checkbox(['value'=>'Y','uncheckValue'=>'N','checked'=>$item->active=='Y'?true:false])
+                    .$form->field($item,'custom_address')
+                    .$form->field($item,'lk_address')
                     .$form->field($item,'phone')
                     .$form->field($item,'email')
                     .$form->field($item,'lat')

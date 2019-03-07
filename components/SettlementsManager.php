@@ -2,20 +2,39 @@
 namespace devskyfly\yiiModuleIitPartners\components;
 
 use yii\base\BaseObject;
+use devskyfly\php56\types\Arr;
 use devskyfly\php56\types\Obj;
+use devskyfly\yiiModuleIitPartners\models\Agent;
 use devskyfly\yiiModuleIitPartners\models\Region;
 use devskyfly\yiiModuleIitPartners\models\Settlement;
 
 class SettlementsManager extends BaseObject
 {
-    public static function getList()
+    public static function getAll($license=null, $public=null, $get_query_result=true)
     {
+        if(!in_array($license, ['Y','N',null])){
+            throw new \InvalidArgumentException('Parameter $license is out of range.');
+        }
         
-        $result=Settlement::find()->where(['active'=>'Y'])
-        ->orderBy(['name'=>SORT_ASC])
-        ->all();
+        if(!in_array($public, ['Y','N',null])){
+            throw new \InvalidArgumentException('Parameter $public is out of range.');
+        }
         
-        return $result;
+        $query=AgentsManager::getAll($license, $public, false);
+        $agents=$query->asArray()->all();
+        
+        $settlements_ids=Arr::getColumn($agents,'_settlement__id');
+        $settlements_ids=array_unique($settlements_ids);
+        
+        $query=Settlement::find()
+        ->where(['active'=>'Y','id'=>$settlements_ids])
+        ->orderBy(['name'=>SORT_ASC]);
+        
+        if($get_query_result){
+            return $query->all();
+        }else{
+            return $query;
+        }
     }
     
     /**

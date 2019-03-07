@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 use yii\rest\Controller;
 
 
-class CommonController extends Controller
+abstract class CommonController extends Controller
 {
     public function behaviors()
     {

@@ -38,11 +38,11 @@ class AgentUpdater extends BaseObject
     public function init()
     {
         $this->status=new Status();
-        $this->module=Yii::$app->getModule('iit-agents-info');
+        $this->module=Yii::$app->getModule('iit-partners');
         
         if(Vrbl::isNull($this->module))
         {
-            throw new \Exception('Module "iit-agents-info" does not exist.');
+            throw new \Exception('Module "iit-partners" does not exist.');
         }
         
         $this->initClient();
@@ -184,9 +184,7 @@ class AgentUpdater extends BaseObject
         }
         $region_id=''.$region_id;
         
-        if($region=Region::findByStrNmb($region_id)){
-            $model->_region__id=$region->id;
-        }else{
+        if(!$region=Region::findByStrNmb($region_id)){
             $error_info[]='Регион неопределен: '.$region_id;
         }
         
@@ -225,12 +223,11 @@ class AgentUpdater extends BaseObject
             $this->status->addErrorItem([
                 'name'=>$data['title'],
                 'guid'=>$data['guid'],
-                'info'=>$error_info]);
+                'info'=>$error_info
+            ]);
         }
         
     }
-    
-    
     
     /**
      * 

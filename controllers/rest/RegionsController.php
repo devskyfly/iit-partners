@@ -1,40 +1,30 @@
 <?php
 namespace devskyfly\yiiModuleIitPartners\controllers\rest;
 
-use devskyfly\php56\types\Arr;
-use devskyfly\yiiModuleIitPartners\models\Agent;
-use devskyfly\yiiModuleIitPartners\models\Region;
-use yii\rest\Controller;
 use yii\web\BadRequestHttpException;
 use yii\helpers\ArrayHelper;
+use devskyfly\yiiModuleIitPartners\models\Agent;
+use devskyfly\yiiModuleIitPartners\components\RegionsManager;
 
 class RegionsController extends CommonController
 {
-    public function actionIndex($license="N")
+    public function actionIndex($license=null)
     {
         $data=[];
         $head=[];
         
-        if(!in_array($license, ['Y','N'])){
+        if(!in_array($license, ['Y','N',null])){
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
         
-        if($license=="Y"){
-            $query=Agent::find()->where(['active'=>'Y','flag_is_public'=>'Y','flag_is_license'=>'Y']);
-        }else{
-            $query=Agent::find()->where(['active'=>'Y']);
-        }
+        $query=RegionsManager::getAll($license,'Y',false);
         
-        $agents=$query->asArray()->all();
-        $region_ids=Arr::getColumn($agents,'_region__id');
-        $region_ids=array_unique($region_ids);
-        
-        $query=Region::find()->where(['active'=>'Y','id'=>$region_ids])->orderBy(['name'=>SORT_ASC]);;
         $fields=[
             "id"=>"id",
             "name"=>"name",
             "str_nmb"=>"code"
         ];
+        
         $data=$this->formData($query, $fields);
         
         $head=[];
