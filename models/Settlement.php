@@ -22,6 +22,7 @@ class Settlement extends AbstractEntity
     const TYPE_SELO='SELO';
     const TYPE_POS='POS';
     const TYPE_PGT='PGT';
+    const TYPE_RBP='RBP';
     
     public static $types=[
         self::TYPE_NOT_DEFINED,
@@ -30,7 +31,9 @@ class Settlement extends AbstractEntity
         self::TYPE_XUTOR,
         self::TYPE_SELO,
         self::TYPE_POS,
-        self::TYPE_PGT
+        self::TYPE_PGT,
+        self::TYPE_RBP,
+        
     ];
     
     public static $hash_types=[
@@ -40,7 +43,8 @@ class Settlement extends AbstractEntity
         self::TYPE_XUTOR=>'х',
         self::TYPE_SELO=>'с',
         self::TYPE_POS=>'п',
-        self::TYPE_PGT=>'пгт'
+        self::TYPE_PGT=>'пгт',
+        self::TYPE_RBP=>'р/п'
     ];
     
     /**********************************************************************/

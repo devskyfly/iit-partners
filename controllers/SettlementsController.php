@@ -66,7 +66,9 @@ class SettlementsController extends AbstractContentPanelController
                         'SELO'=>'Село',
                         'XUTOR'=>'Хутор',
                         'POS'=>'Поселок',
-                        'PGT'=>'Пгт'])
+                        'PGT'=>'Пгт',
+                        'RBP'=>'Рабочий поселок'
+                    ])
                 ],
                 
             ];

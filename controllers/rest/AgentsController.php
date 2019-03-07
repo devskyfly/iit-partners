@@ -33,7 +33,7 @@ class AgentsController extends CommonController
            return $arr_item;
        };
        
-       $query=AgentsManager::getAll($license,'Y',false);
+       $query=AgentsManager::getAll($license,'Y','N',false);
        
        $fields=[
            "name"=>"title",

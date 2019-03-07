@@ -27,7 +27,7 @@ class SettlementsController extends CommonController
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
         
-        $query=SettlementsManager::getAll($license,'Y',false);
+        $query=SettlementsManager::getAll($license,'Y','N',false);
         
         $fields=[
             "id"=>"id",

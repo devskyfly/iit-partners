@@ -15,7 +15,7 @@ class RegionsManager extends BaseObject
      * 
      * @return \devskyfly\yiiModuleIitPartners\models\Region[]
      */
-    public static function getAll($license=null, $public=null, $get_query_result=true)
+    public static function getAll($license=null, $public=null, $flag_is_need_to_custom=null, $get_query_result=true)
     {   
         if(!in_array($license, ['Y','N',null])){
             throw new \InvalidArgumentException('Parameter $license is out of range.');
@@ -25,7 +25,11 @@ class RegionsManager extends BaseObject
             throw new \InvalidArgumentException('Parameter $public is out of range.');
         }
         
-        $agents_query=AgentsManager::getAll($license, $public, false);
+        if(!in_array($flag_is_need_to_custom, ['Y','N',null])){
+            throw new \InvalidArgumentException('Parameter $flag_is_need_to_custom is out of range.');
+        }
+        
+        $agents_query=AgentsManager::getAll($license, $public, $flag_is_need_to_custom, false);
         $agents=$agents_query->asArray()->all();
         $settlements_ids=Arr::getColumn($agents,'_settlement__id');
         

@@ -8,7 +8,7 @@ use yii\base\BaseObject;
 
 class AgentsManager extends BaseObject
 {
-    public static function getAll($license=null,$public=null, $get_query_result=true)
+    public static function getAll($license=null,$public=null,$flag_is_need_to_custom=null,$get_query_result=true)
     {
         if(!in_array($license, ['Y','N',null])){
             throw new \InvalidArgumentException('Parameter $license is out of range.');
@@ -16,6 +16,10 @@ class AgentsManager extends BaseObject
         
         if(!in_array($public, ['Y','N',null])){
             throw new \InvalidArgumentException('Parameter $public is out of range.');
+        }
+        
+        if(!in_array($flag_is_need_to_custom, ['Y','N',null])){
+            throw new \InvalidArgumentException('Parameter $flag_is_need_to_custom is out of range.');
         }
 
         $query=Agent::find()->where(['active'=>'Y']);
@@ -26,6 +30,10 @@ class AgentsManager extends BaseObject
         
         if(!Vrbl::isNull($public)){
             $query=$query->andWhere(['flag_is_public'=>$public]);
+        }
+        
+        if(!Vrbl::isNull($flag_is_need_to_custom)){
+            $query=$query->andWhere(['flag_is_need_to_custom'=>$flag_is_need_to_custom]);
         }
         
         if($get_query_result){
@@ -43,7 +51,7 @@ class AgentsManager extends BaseObject
      * @throws \InvalidArgumentException
      * @return \devskyfly\yiiModuleIitPartners\models\Agent|null
      */
-    public static function getNearest($lng,$lat,$license=null,$public=null)
+    public static function getNearest($lng,$lat,$license=null,$flag_is_need_to_custom=null,$public=null)
     {
         if(!in_array($license, ['Y','N',null])){
             throw new \InvalidArgumentException('Parameter $license is out of range.');
@@ -51,6 +59,10 @@ class AgentsManager extends BaseObject
         
         if(!in_array($public, ['Y','N',null])){
             throw new \InvalidArgumentException('Parameter $public is out of range.');
+        }
+        
+        if(!in_array($flag_is_need_to_custom, ['Y','N',null])){
+            throw new \InvalidArgumentException('Parameter $flag_is_need_to_custom is out of range.');
         }
         
         $lng=Nmbr::toDoubleStrict($lng);
@@ -67,6 +79,9 @@ class AgentsManager extends BaseObject
         }
         if(!Vrbl::isNUll($public)){
             $query->andWhere(['flag_is_public'=>$public]);
+        }
+        if(!Vrbl::isNull($flag_is_need_to_custom)){
+            $query=$query->andWhere(['flag_is_need_to_custom'=>$flag_is_need_to_custom]);
         }
         
         $agents=$query->all();
