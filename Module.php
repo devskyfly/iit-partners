@@ -1,15 +1,15 @@
 <?php
 namespace devskyfly\yiiModuleIitPartners;
 
-use devskyfly\php56\types\Lgc;
 use devskyfly\php56\types\Str;
 use devskyfly\php56\types\Vrbl;
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 
 class Module extends \yii\base\Module
 {
+    const CSS_NAMESPACE='devskyfly-yii-iit-partners';
+    const TITLE="Модуль \"Партнеры\"";
     
     /**
      * 
