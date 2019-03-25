@@ -1,17 +1,12 @@
 <?php
 namespace devskyfly\yiiModuleIitPartners\console;
 
-use devskyfly\php56\types\Vrbl;
-use devskyfly\yiiModuleIitPartners\models\Agent;
 use devskyfly\yiiModuleIitPartners\models\Region;
-use devskyfly\yiiModuleIitPartners\models\Settlement;
-use devskyfly\yiiModuleIitPartners\tools\AgentUpdater;
 use Yii;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use yii\helpers\BaseConsole;
 use yii\helpers\Json;
-use yii\httpclient\Client;
 
 class AgentsController extends Controller
 {
