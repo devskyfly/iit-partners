@@ -8,7 +8,7 @@ use yii\console\ExitCode;
 use yii\helpers\BaseConsole;
 use yii\helpers\Json;
 
-class AgentsController extends Controller
+class RegionsController extends Controller
 {
     
     
@@ -17,7 +17,7 @@ class AgentsController extends Controller
      * 
      * @return number
      */
-    public function actionInitialize()
+    public function actionInit()
     {
         $db=Yii::$app->db;
         $transaction=$db->beginTransaction();
@@ -51,5 +51,25 @@ class AgentsController extends Controller
         return ExitCode::OK;
     }
     
+    /**
+     * Clear regions.
+     * 
+     * @return number
+     */
+    public function actionClear()
+    {
+        $result='';
+        try {
+            $result=Region::truncateLikeItems();
+        }catch(\Exception $e){
+            BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
+            return -1;
+        }catch (\Throwable $e){
+            BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
+            return -1;
+        }
+        BaseConsole::stdout('Удалено: '.$result.' строк.'.PHP_EOL);
+        return 0;
+    }
     
 }

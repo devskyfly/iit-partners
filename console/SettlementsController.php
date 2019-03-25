@@ -5,14 +5,14 @@ use devskyfly\yiiModuleIitPartners\models\Settlement;
 use yii\console\Controller;
 use yii\helpers\BaseConsole;
 
-class SettlmentsController extends Controller
+class SettlementsController extends Controller
 {
     /**
      * Delete Settlements items.
      * 
      * @return number
      */
-    public function actionClearSettlements()
+    public function actionClear()
     {
         $result='';
         try {
