@@ -1,5 +1,7 @@
 ### Console методы
 
-* iit-agents-info/service/update-agents
-* iit-agents-info/service/clear-agents
-* iit-agents-info/service/clear-settlements
+* iit-partners/lk/send-requiest
+* iit-partners/agents/update
+* iit-partners/agents/clear
+* iit-partners/settlements/clear
+* iit-partners/regions/initialize
