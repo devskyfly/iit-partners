@@ -146,7 +146,7 @@ class AgentUpdater extends BaseObject
         $model=new Agent();
         $model->active=$data['blocked']==1?'N':'Y';
         $model->initCreateAndChangeDateTime();
-        $model->name=$data['title'];
+        $model->name=$data['plain_title'];
         
         $model->manager_in_charge=$data['manager_in_charge'];
         
@@ -161,7 +161,7 @@ class AgentUpdater extends BaseObject
         
         $model->flag_is_need_to_custom='Y';
         
-        if(mb_ereg_match('^[ \s\S]*?инфотекс[ \s\S]*?$',$data['title'],'i')===true){
+        if(mb_ereg_match('^[ \s\S]*?инфотекс[ \s\S]*?$',$data['plain_title'],'i')===true){
             $model->flag_is_own='Y';
         }else{
             $model->flag_is_own='N';
@@ -176,7 +176,7 @@ class AgentUpdater extends BaseObject
         /** Region **/
         /**********************************************************************/
         
-        $region_id=$data['region_id'];
+        $region_id=$data['region'];
         
         if(($region_id<10)
             &&(mb_strlen($region_id)==1)){
@@ -214,14 +214,14 @@ class AgentUpdater extends BaseObject
         } 
         
         if($result=$model->saveLikeItem()){
-            $this->status->addInsertItem(['name'=>$data['title'],'guid'=>$data['guid']]);
+            $this->status->addInsertItem(['name'=>$data['plain_title'],'guid'=>$data['guid']]);
         }else{
             throw new \Exception('Can\'t update item.'.PHP_EOL.print_r($model->errors,true));
         }
         
         if(!Vrbl::isEmpty($error_info)){
             $this->status->addErrorItem([
-                'name'=>$data['title'],
+                'name'=>$data['plain_title'],
                 'guid'=>$data['guid'],
                 'info'=>$error_info
             ]);
@@ -260,8 +260,8 @@ class AgentUpdater extends BaseObject
             $modifined=$modifined||true;
         }
         
-        if($model->name!=$data['title']){
-            $model->name=$data['title'];
+        if($model->name!=$data['plain_title']){
+            $model->name=$data['plain_title'];
             $info[]=['Изменилось наименование.'];
             $modifined=$modifined||true;
         }
@@ -327,7 +327,7 @@ class AgentUpdater extends BaseObject
         /** Region **/
         /**********************************************************************/
         
-        /* $region_id=$data['region_id'];
+        /* $region_id=$data['region'];
         
         if(($region_id<10)
             &&(mb_strlen($region_id)==1)){
@@ -370,14 +370,14 @@ class AgentUpdater extends BaseObject
         if($modifined){
             $model->flag_is_need_to_custom='Y';
             if($result=$model->saveLikeItem()){
-                $this->status->addUpdateItem(['name'=>$data['title'],'guid'=>$data['guid'],'info'=>$info]);
+                $this->status->addUpdateItem(['name'=>$data['plain_title'],'guid'=>$data['guid'],'info'=>$info]);
             }else{
                 throw new \Exception('Can\'t update item.'.PHP_EOL.print_r($model->errors,true));
             }
             
             if(!Vrbl::isEmpty($error_info)){
                 $this->status->addErrorItem([
-                    'name'=>$data['title'],
+                    'name'=>$data['plain_title'],
                     'guid'=>$data['guid'],
                     'info'=>$error_info]);
             }

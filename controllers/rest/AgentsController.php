@@ -57,12 +57,12 @@ class AgentsController extends CommonController
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
         
-        $nearest=AgentsManager::getNearest($lng, $lat, $license);
+        $nearest=AgentsManager::getNearest($lng, $lat, $license,'Y');
         
         if(Vrbl::isNull($nearest)){
             throw NotFoundHttpException();
         }      
-        $item=$nearest;
+        $item=$nearest['link'];
         $result=[
             "title"=>$item->name,
             "guid"=>$item->lk_guid,
