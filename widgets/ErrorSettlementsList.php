@@ -8,7 +8,7 @@ use devskyfly\yiiModuleIitPartners\models\Settlement;
 
 class ErrorSettlementsList extends Widget
 {
-    public $data;
+    public $data=[];
     
     public function init()
     {
