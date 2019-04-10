@@ -28,8 +28,12 @@ class AgentsController extends CommonController
            ->where(['id'=>$region_id])
            ->one();
            
+           $settlement=Settlement::find()->where(['id'=>$item['_settlement__id']])->one();
+           
            $arr_item['region_id']=$region->str_nmb;
            $arr_item['settlement_id']=Str::toString($item['_settlement__id']);
+           $arr_item['locality_name']=Str::toString($settlement->name);
+           $arr_item['locality_type']=Settlement::$hash_types[$settlement['type']];
            return $arr_item;
        };
        
@@ -45,7 +49,9 @@ class AgentsController extends CommonController
            "email"=>"email",
            "phone"=>"phone",
            "custom_address"=>"address",
-           "_settlement__id"=>"settlement_id"
+           "_settlement__id"=>"settlement_id",
+           "locality_name"=>"locality_name",
+           "locality_type"=>"locality_type"
        ];
        
        $this->asJson($this->formData($query, $fields, $callback)); 

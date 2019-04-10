@@ -38,12 +38,12 @@ class Settlement extends AbstractEntity
     
     public static $hash_types=[
         self::TYPE_NOT_DEFINED=>'',
-        self::TYPE_GOROD=>'г',
-        self::TYPE_STANICA=>'ст',
-        self::TYPE_XUTOR=>'х',
-        self::TYPE_SELO=>'с',
-        self::TYPE_POS=>'п',
-        self::TYPE_PGT=>'пгт',
+        self::TYPE_GOROD=>'г.',
+        self::TYPE_STANICA=>'ст.',
+        self::TYPE_XUTOR=>'х.',
+        self::TYPE_SELO=>'с.',
+        self::TYPE_POS=>'п.',
+        self::TYPE_PGT=>'пгт.',
         self::TYPE_RBP=>'р/п'
     ];
     
