@@ -51,7 +51,10 @@ class AgentsController extends CommonController
            "custom_address"=>"address",
            "_settlement__id"=>"settlement_id",
            "locality_name"=>"locality_name",
-           "locality_type"=>"locality_type"
+           "locality_type"=>"locality_type",
+           "comment"=>"comment",
+           "open"=>"open_hours",
+           "close"=>"closed_time"
        ];
        
        $this->asJson($this->formData($query, $fields, $callback)); 
