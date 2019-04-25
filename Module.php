@@ -93,7 +93,7 @@ class Module extends \yii\base\Module
          }
          
          if(Vrbl::isEmpty($this->lk_org_url)){
-             throw new \InvalidArgumentException('Property $lk_url is empty.');
+             throw new \InvalidArgumentException('Property $lk_org_url is empty.');
          }
          
          if(!Str::isString($this->lk_pass)){
