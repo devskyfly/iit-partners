@@ -27,6 +27,10 @@ use yii\helpers\ArrayHelper;
  * @property string $manager_in_charge
  * @property string $_settlement__id
  * @property string $partner_code
+ * 
+ * @property string $open
+ * @property string $close
+ * @property string $comment
  */
 class Agent extends AbstractEntity
 {
@@ -50,6 +54,7 @@ class Agent extends AbstractEntity
         
         $new_rules=[
             [['info','lk_guid'],'string'],
+            [['comment','open','close'],'string'],
             [['lng','lat'],'string'],
             [['lk_address','custom_address'],'string'],
             [['manager_in_charge'],'string'],

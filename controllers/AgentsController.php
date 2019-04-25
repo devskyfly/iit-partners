@@ -74,6 +74,9 @@ class AgentsController extends AbstractContentPanelController
                     .$form->field($item,'lng')
                     .$form->field($item,'manager_in_charge')
                     .$form->field($item,'info')->textarea(['rows'=>5])
+                    .$form->field($item,'comment')->textarea(['rows'=>5])
+                    .$form->field($item,'open')->textarea(['rows'=>5])
+                    .$form->field($item,'close')->textarea(['rows'=>5])
                     
                     
             ],

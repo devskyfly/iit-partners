@@ -159,6 +159,16 @@ class AgentUpdater extends BaseObject
         $model->lng=$data['longitude'];
         $model->lat=$data['latitude'];
         
+        $model->comment=$data['comment'];
+        $model->open=$data['open_hours'];
+        
+        $closed_period=$data['closed_period'];
+        if(is_array($closed_period)){
+            $closed_period='Не работает с '.$closed_period[0].' по '.$closed_period[1];
+        }
+        $model->close=$closed_period;
+           
+        
         $model->flag_is_need_to_custom='Y';
         
         if(mb_ereg_match('^[ \s\S]*?инфотекс[ \s\S]*?$',$data['plain_title'],'i')===true){
@@ -303,6 +313,30 @@ class AgentUpdater extends BaseObject
             $modifined=$modifined||true;
         }
         
+        if($model->comment!=$data['comment']){
+            $model->comment=$data['comment'];
+            $info[]=['Изменился комментарий.'];
+            $modifined=$modifined||true;
+        }
+        
+        if($model->open!=$data['open_hours']){
+            $model->open=$data['open_hours'];
+            $info[]=['Изменился график работы.'];
+            $modifined=$modifined||true;
+        }
+        
+        $closed_period=$data['closed_period'];
+        
+        if(is_array($closed_period)){
+            $closed_period='Не работает с '.$closed_period[0].' по '.$closed_period[1];
+        }
+        
+        if($model->close!=$closed_period){
+            $model->close=$closed_period;
+        $info[]=['Изменился период закрытия.'];
+        $modifined=$modifined||true;
+        }
+        
         if($model->partner_code!=$data['partner_code']){
             $model->partner_code=$data['partner_code'];
             $info[]=['Изменился партнер код.'];
@@ -323,6 +357,8 @@ class AgentUpdater extends BaseObject
             $info[]=['Изменилась публичность.'];
             $modifined=$modifined||true;
         }
+        
+        
         /**********************************************************************/
         /** Region **/
         /**********************************************************************/
