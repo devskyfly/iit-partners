@@ -28,6 +28,12 @@ class Module extends \yii\base\Module
       */
      public $lk_url="";
      
+     /**
+      * 
+      * @var string
+      */
+     public $lk_org_url="";
+     
      public function init()
      {
          parent::init();
@@ -83,6 +89,10 @@ class Module extends \yii\base\Module
          }
          
          if(Vrbl::isEmpty($this->lk_url)){
+             throw new \InvalidArgumentException('Property $lk_url is empty.');
+         }
+         
+         if(Vrbl::isEmpty($this->lk_org_url)){
              throw new \InvalidArgumentException('Property $lk_url is empty.');
          }
          
