@@ -75,17 +75,19 @@ class AgentsController extends CommonController
         
         foreach ($nearest as $nearestItm) {
             $item=$nearestItm['link'];
-            $result[]=[
-                "title"=>$item->name,
-                "guid"=>$item->lk_guid,
-                "license"=>$item->flag_is_license,
-                "is_own"=>$item->flag_is_own,
-                "longitude"=>$item->lng,
-                "latitude"=>$item->lat,
-                "email"=>$item->email,
-                "phone"=>$item->phone,
-                "address"=>$item->custom_address
-            ];
+            if ($nearestItm['del'] < 6) {
+                $result[]=[
+                    "title"=>$item->name,
+                    "guid"=>$item->lk_guid,
+                    "license"=>$item->flag_is_license,
+                    "is_own"=>$item->flag_is_own,
+                    "longitude"=>$item->lng,
+                    "latitude"=>$item->lat,
+                    "email"=>$item->email,
+                    "phone"=>$item->phone,
+                    "address"=>$item->custom_address
+                ];
+            }
         }
         $this->asJson($result);
     }
