@@ -89,6 +89,11 @@ class AgentsController extends CommonController
                 ];
             }
         }
+
+        if(count($result)>10){
+            $result = \array_chunk($result,10);
+        }
+        
         $this->asJson($result);
     }
 }
