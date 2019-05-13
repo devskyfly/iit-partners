@@ -94,6 +94,7 @@ class AgentsController extends CommonController
                     ];
                 }
             }
+            return $result;
         };
 
         $result = $resultFormFct($nearest,6);
