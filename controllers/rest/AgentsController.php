@@ -73,25 +73,38 @@ class AgentsController extends CommonController
             throw NotFoundHttpException();
         }      
         
-        foreach ($nearest as $nearestItm) {
-            $item=$nearestItm['link'];
-            if ($nearestItm['del'] < 6) {
-                $result[]=[
-                    "title"=>$item->name,
-                    "guid"=>$item->lk_guid,
-                    "license"=>$item->flag_is_license,
-                    "is_own"=>$item->flag_is_own,
-                    "longitude"=>$item->lng,
-                    "latitude"=>$item->lat,
-                    "email"=>$item->email,
-                    "phone"=>$item->phone,
-                    "address"=>$item->custom_address
-                ];
+        $resultFormFct=function($nearest,$del=0)
+        {
+            $result=[];
+            foreach ($nearest as $nearestItm) {
+                $item=$nearestItm['link'];
+
+                if (($nearestItm['del'] < $del)
+                || ($del == 0)) {
+                        $result[]=[
+                        "title"=>$item->name,
+                        "guid"=>$item->lk_guid,
+                        "license"=>$item->flag_is_license,
+                        "is_own"=>$item->flag_is_own,
+                        "longitude"=>$item->lng,
+                        "latitude"=>$item->lat,
+                        "email"=>$item->email,
+                        "phone"=>$item->phone,
+                        "address"=>$item->custom_address
+                    ];
+                }
             }
+        };
+
+        $result = resultFormFct($nearest,6);
+        
+        if(empty($result)){
+            $result = resultFormFct($nearest);
+            $result = array_splice($result,10);
         }
 
         if(count($result)>10){
-            $result = \array_chunk($result,10);
+            $result =array_splice($result,10);
         }
         
         $this->asJson($result);
