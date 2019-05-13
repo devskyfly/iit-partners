@@ -96,10 +96,10 @@ class AgentsController extends CommonController
             }
         };
 
-        $result = resultFormFct($nearest,6);
-        
+        $result = $resultFormFct($nearest,6);
+
         if(empty($result)){
-            $result = resultFormFct($nearest);
+            $result = $resultFormFct($nearest);
             $result = array_splice($result,10);
         }
 
