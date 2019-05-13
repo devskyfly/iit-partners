@@ -36,7 +36,45 @@ class LkController extends Controller
                 'Authorization' => 'Basic ' . base64_encode($this->module->lk_login . ':' . $this->module->lk_pass)
             ])->setUrl($this->module->lk_url);
             $data=$request->send();
-            BaseConsole::stdout(print_r($data->getData(),true));
+            $list=$data->getData();
+            
+            
+            $itr=0;
+            $lng=count($list);
+            
+            $excluded_types=[
+                //'',
+            //'attendant',
+            'recruit',
+            'operator',
+            //'license',
+            //'iit',
+            'organization',
+            'corporate',
+            'medical',
+            'group',
+            'corp_without_upload'         
+            ]; 
+
+            for($itr=0;$itr<$lng;$itr++){
+                $item=$list[$itr];
+                if($item['point_type']==16){
+                    unset($list[$itr]);
+                }
+
+                if($item['blocked']){
+                    unset($list[$itr]);
+                }
+
+                if($item['point_is_technical']==1){
+                    unset($list[$itr]);
+                }
+                if(in_array($item['parent']['agent_type'],$excluded_types)){
+                    unset($list[$itr]);
+                }
+            }
+            
+            BaseConsole::stdout(print_r(array_values($list),true));
             
         }catch(\Exception $e){
             BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
