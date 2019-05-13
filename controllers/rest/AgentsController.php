@@ -65,24 +65,28 @@ class AgentsController extends CommonController
         if(!in_array($license, ['Y','N',null])){
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
-        
-        $nearest=AgentsManager::getNearest($lng, $lat, $license,'Y');
+     
+        $result=[];
+        $nearest=AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
         
         if(Vrbl::isNull($nearest)){
             throw NotFoundHttpException();
         }      
-        $item=$nearest['link'];
-        $result=[
-            "title"=>$item->name,
-            "guid"=>$item->lk_guid,
-            "license"=>$item->flag_is_license,
-            "is_own"=>$item->flag_is_own,
-            "longitude"=>$item->lng,
-            "latitude"=>$item->lat,
-            "email"=>$item->email,
-            "phone"=>$item->phone,
-            "address"=>$item->custom_address
-        ];
+        
+        foreach ($nearest as $nearestItm) {
+            $item=$nearestItm['link'];
+            $result[]=[
+                "title"=>$item->name,
+                "guid"=>$item->lk_guid,
+                "license"=>$item->flag_is_license,
+                "is_own"=>$item->flag_is_own,
+                "longitude"=>$item->lng,
+                "latitude"=>$item->lat,
+                "email"=>$item->email,
+                "phone"=>$item->phone,
+                "address"=>$item->custom_address
+            ];
+        }
         $this->asJson($result);
     }
 }

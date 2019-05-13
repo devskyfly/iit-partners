@@ -51,7 +51,7 @@ class AgentsManager extends BaseObject
      * @throws \InvalidArgumentException
      * @return \devskyfly\yiiModuleIitPartners\models\Agent|null
      */
-    public static function getNearest($lng,$lat,$license=null,$flag_is_need_to_custom=null,$public=null)
+    public static function getNearest($lng, $lat, $license=null, $flag_is_need_to_custom=null, $public=null, $arr=true)
     {
         if(!in_array($license, ['Y','N',null])){
             throw new \InvalidArgumentException('Parameter $license is out of range.');
@@ -105,10 +105,14 @@ class AgentsManager extends BaseObject
         
         usort($arr, $sort_fn);
         
-        if(isset($arr[0])){
-            return $arr[0];
+        if ($arr) {
+            return $arr;
+        } else {
+            if(isset($arr[0])){
+                return $arr[0];
+            }
         }
-        
+
         return null;
     }
 }
