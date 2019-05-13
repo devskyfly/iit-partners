@@ -54,7 +54,8 @@ class AgentsController extends CommonController
            "locality_type"=>"locality_type",
            "comment"=>"comment",
            "open"=>"open_hours",
-           "close"=>"closed_time"
+           "close"=>"closed_time",
+           
        ];
        
        $this->asJson($this->formData($query, $fields, $callback)); 
@@ -62,18 +63,7 @@ class AgentsController extends CommonController
     
     public function actionGetNearest($lng,$lat,$license=null)
     {
-        if(!in_array($license, ['Y','N',null])){
-            throw new BadRequestHttpException('Query parameter $license is out of range.');
-        }
-     
-        $result=[];
-        $nearest=AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
-        
-        if(Vrbl::isNull($nearest)){
-            throw NotFoundHttpException();
-        }      
-        
-        $resultFormFct=function($nearest,$del=0)
+        $resultFormFct = function ($nearest,$del=0)
         {
             $result=[];
             foreach ($nearest as $nearestItm) {
@@ -90,24 +80,36 @@ class AgentsController extends CommonController
                         "latitude"=>$item->lat,
                         "email"=>$item->email,
                         "phone"=>$item->phone,
-                        "address"=>$item->custom_address
+                        "address"=>$item->custom_address,
+                        "del" => $nearestItm['del']
                     ];
-                }
+               }
             }
             return $result;
         };
 
-        $result = $resultFormFct($nearest,6);
+        if(!in_array($license, ['Y','N',null])){
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
+     
+        $result=[];
+        $nearest=AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
+        
+        if(Vrbl::isNull($nearest)){
+            throw NotFoundHttpException();
+        }      
+
+        $result = $resultFormFct($nearest, 6);
 
         if(empty($result)){
             $result = $resultFormFct($nearest);
-            $result = array_splice($result,10);
+            $result = array_splice($result,0,15);
+        }else{
+            if(count($result)>10){
+                $result =array_splice($result,0,15);
+            }
         }
 
-        if(count($result)>10){
-            $result =array_splice($result,10);
-        }
-        
         $this->asJson($result);
     }
 }
