@@ -17,7 +17,7 @@ class RegionsController extends CommonController
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
         
-        $query=RegionsManager::getAll($license,'Y','N',false);
+        $query=RegionsManager::getAll($license,'Y',null,false);
         
         $fields=[
             "id"=>"id",

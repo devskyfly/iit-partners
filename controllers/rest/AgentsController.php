@@ -3,6 +3,7 @@ namespace devskyfly\yiiModuleIitPartners\controllers\rest;
 
 use devskyfly\php56\types\Str;
 use devskyfly\php56\types\Vrbl;
+use devskyfly\php56\types\Nmbr;
 use devskyfly\yiiModuleIitPartners\models\Region;
 use devskyfly\yiiModuleIitPartners\models\Settlement;
 use devskyfly\yiiModuleIitPartners\components\AgentsManager;
@@ -30,14 +31,16 @@ class AgentsController extends CommonController
            
            $settlement=Settlement::find()->where(['id'=>$item['_settlement__id']])->one();
            
+
            $arr_item['region_id']=$region->str_nmb;
-           $arr_item['settlement_id']=Str::toString($item['_settlement__id']);
+           $arr_item['settlement_id']=Nmbr::toIntegerStrict($item['_settlement__id']);
+
            $arr_item['locality_name']=Str::toString($settlement->name);
            $arr_item['locality_type']=Settlement::$hash_types[$settlement['type']];
            return $arr_item;
        };
        
-       $query=AgentsManager::getAll($license,'Y','N',false);
+       $query=AgentsManager::getAll($license,'Y',null,false);
        
        $fields=[
            "name"=>"title",
@@ -57,8 +60,15 @@ class AgentsController extends CommonController
            "close"=>"closed_time",
            
        ];
-       
-       $this->asJson($this->formData($query, $fields, $callback)); 
+
+       $data=$this->formData($query, $fields, $callback);
+
+       /*$data=array_map(function($item){
+            $item['settlement_id']=Nmbr::toIntegerStrict($item['settlement_id']);
+            return $item;
+       },$data);*/
+
+       $this->asJson($data); 
     }
     
     public function actionGetNearest($lng,$lat,$license=null)
@@ -71,6 +81,14 @@ class AgentsController extends CommonController
 
                 if (($nearestItm['del'] < $del)
                 || ($del == 0)) {
+                    if(empty($item->_settlement__id)) continue;
+                    $settlement_id=Nmbr::toIntegerStrict($item->_settlement__id);
+                    $settlement=Settlement::getById($settlement_id);
+                    if(empty($settlement->_region__id)) continue;
+                    $region=Region::find()
+                    ->where(['id'=>$settlement->_region__id])
+                    ->one();
+                    $region_id=$region->str_nmb;
                         $result[]=[
                         "title"=>$item->name,
                         "guid"=>$item->lk_guid,
@@ -81,6 +99,8 @@ class AgentsController extends CommonController
                         "email"=>$item->email,
                         "phone"=>$item->phone,
                         "address"=>$item->custom_address,
+                        "settlement_id"=>$settlement_id,
+                        "region_id"=>$region_id,
                         "del" => $nearestItm['del']
                     ];
                }
