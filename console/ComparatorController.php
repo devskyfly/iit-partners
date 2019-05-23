@@ -40,7 +40,7 @@ class ComparatorController extends Controller
             'group',
             'corp_without_upload'         
             ]; 
-            $external=$this->getData('https://iitrust.lk/api/agent/points?format=json', $excluded_types);
+            $external=$this->getData('https://iitrust.lk/api/agent/points?format=json', $excluded_types,true);
             $external_ids=\array_column($external, 'id');
 
             //#############################################################################################################
@@ -48,18 +48,18 @@ class ComparatorController extends Controller
 
             //'attendant',
             'recruit',
-            //'operator',
+            'operator',
             //'license',
             //'iit',
             'organization',
             'corporate',
             'medical',
             'group',
-            'corp_without_upload'         
+            'corp_without_upload',  
             ]; 
             
             //#############################################################################################################
-            $internal=$this->getData('https://iitrust.lk/api/agent/points?format=json', $excluded_types);
+            $internal=$this->getData('https://iitrust.lk/api/agent/points?format=json', $excluded_types,true);
             $internal_ids=\array_column($internal, 'id');
 
             $ids = \array_merge($stocks_ids, $external_ids, $internal_ids);
@@ -112,7 +112,7 @@ class ComparatorController extends Controller
         return null;
     }
 
-    protected function getData($url, $excluded_types)
+    protected function getData($url, $excluded_types,$ckeckEmpty=false)
     {
         $client=new Client();
             
@@ -143,6 +143,9 @@ class ComparatorController extends Controller
                 unset($list[$itr]);
             }
             if(in_array($item['parent']['agent_type'],$excluded_types)){
+                unset($list[$itr]);
+            }
+            if($ckeckEmpty&&empty($item['parent']['agent_type'])){
                 unset($list[$itr]);
             }
         }
