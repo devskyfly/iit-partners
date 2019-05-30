@@ -51,4 +51,27 @@ class AgentsController extends Controller
        BaseConsole::stdout('Удалено: '.$result.' строк.'.PHP_EOL);
        return 0;
     }
+
+    public function actionResetNeedToCustomFlag()
+    {
+       try {
+           $query=Agent::find()->where([]);
+           foreach($query->each() as $item){
+            if($item->flag_is_need_to_custom=='Y'){
+                BaseConsole::stdout($item->name.PHP_EOL);
+                $item->flag_is_need_to_custom='N';   
+                $item->saveLikeItem();
+            }   
+            
+           }
+       }catch(\Exception $e){
+           BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
+           return -1;
+       }catch (\Throwable $e){
+           BaseConsole::stdout($e->getMessage().PHP_EOL.$e->getTraceAsString().PHP_EOL);
+           return -1;
+       }
+       BaseConsole::stdout('Флаг сброшен.'.PHP_EOL);
+       return 0;
+    }
 }
