@@ -114,21 +114,26 @@ class AgentsController extends CommonController
      
         $result=[];
         $nearest=AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
-        
-        if(Vrbl::isNull($nearest)){
+
+
+
+
+        if (Vrbl::isNull($nearest)) {
             throw NotFoundHttpException();
-        }      
+        }
 
         $result = $resultFormFct($nearest, 6);
 
-        if(empty($result)){
+        if (empty($result)) {
             $result = $resultFormFct($nearest);
-            $result = array_splice($result,0,15);
-        }else{
-            if(count($result)>10){
-                $result =array_splice($result,0,15);
+            $result = array_splice($result, 0, 15);
+        } else {
+            if (count($result) > 10) {
+                $result = array_splice($result, 0, 15);
             }
         }
+
+        $result = AgentsManager::sortByOwn($result, 3);
 
         $this->asJson($result);
     }
