@@ -133,8 +133,44 @@ class AgentsController extends CommonController
             }
         }
 
-        $result = AgentsManager::sortByOwn($result, 3);
+        $result = static::sortByOwn($result, 3);
 
         $this->asJson($result);
+    }
+   
+    protected function sortByOwn($arr,$del=0)
+    {
+        if(!is_array($arr)){
+            throw new \InvalidArgumentException('Param $arr is not array type.');
+        }
+
+        if(!Nmbr::isNumeric($del)){
+            throw new \InvalidArgumentException('Param $del is not numeric type.');
+        }
+
+        $own = [];
+        $size = count($arr);
+        for ($i = 0; $i < $size; $i++) {
+            $itm = $arr[$i];
+
+            if ($del == 0) {
+                if ($itm['is_own'] == 'Y') {
+                    $own[] = $itm;
+                    unset($arr[$i]);
+                }
+            } else {
+                if (($itm['is_own'] == 'Y')
+                    && ($itm['del'] == $del)
+                ) {
+                    $own[] = $itm;
+                    unset($arr[$i]);
+                }
+            }
+        }
+
+        $arr = ArrayHelper::merge($own, $arr);
+        $arr = array_values($arr);
+
+        return $arr;
     }
 }

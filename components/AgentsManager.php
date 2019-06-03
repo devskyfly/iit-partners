@@ -133,12 +133,12 @@ class AgentsManager extends BaseObject
             $itm = $arr[$i];
 
             if ($del == 0) {
-                if ($itm['flag_is_own'] == 'Y') {
+                if ($itm['is_own'] == 'Y') {
                     $own[] = $itm;
                     unset($arr[$i]);
                 }
             } else {
-                if (($itm['flag_is_own'] == 'Y')
+                if (($itm['is_own'] == 'Y')
                     && ($itm['del'] == $del)
                 ) {
                     $own[] = $itm;
