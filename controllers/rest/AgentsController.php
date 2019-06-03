@@ -138,10 +138,9 @@ class AgentsController extends CommonController
             }
         }
 
-        $result = static::mvUpperByOwn($result, 3);
         $result = static::mvDownClosed($result);
         $result = static::mvDownNotFastRelease($result);
-
+        $result = static::mvUpperByOwn($result, 3);
 
         $this->asJson($result);
     }
@@ -216,7 +215,7 @@ class AgentsController extends CommonController
         
         for ($i = 0; $i < $size; $i++) {
             $itm = $arr[$i];
-            if ($itm['fast_release']) {
+            if (!$itm['fast_release']) {
                 $partion[] = $itm;
                 unset($arr[$i]);
             }
