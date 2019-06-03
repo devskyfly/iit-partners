@@ -47,6 +47,7 @@ class AgentsController extends CommonController
            "lk_guid"=>"guid",
            "flag_is_license"=>"license",
            "flag_is_own"=>"is_own",
+           "flag_is_fast_release"=>"fast_release",
            "lng"=>"longitude",
            "lat"=>"latitude",
            "email"=>"email",
@@ -57,8 +58,7 @@ class AgentsController extends CommonController
            "locality_type"=>"locality_type",
            "comment"=>"comment",
            "open"=>"open_hours",
-           "close"=>"closed_time",
-           
+           "close"=>"closed_time"
        ];
 
        $data=$this->formData($query, $fields, $callback);

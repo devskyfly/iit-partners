@@ -168,7 +168,7 @@ class AgentUpdater extends BaseObject
         }
         $model->close=$closed_period;
            
-        
+        $model->flag_is_fast_release = $data['supports_urgent_release']?'Y':'N';
         $model->flag_is_need_to_custom='Y';
         
         if(mb_ereg_match('^[ \s\S]*?инфотекс[ \s\S]*?$',$data['plain_title'],'i')===true){
@@ -343,6 +343,12 @@ class AgentUpdater extends BaseObject
             $modifined=$modifined||true;
         }
         
+        $fast_release=$model->flag_is_fast_release=='Y'?true:false;
+        if($fast_release!=$data['supports_urgent_release']){
+            $model->flag_is_fast_release=$data['supports_urgent_release']?'Y':'N';
+            $info[]=['Изменился признак срочного  выпуска.'];
+            $modifined=$modifined||true;
+        }
         
         $license=$model->flag_is_license=='Y'?16:8;
         if($license!=$data['point_licensee_type']){

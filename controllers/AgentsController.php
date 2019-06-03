@@ -66,6 +66,7 @@ class AgentsController extends AbstractContentPanelController
                     .$form->field($item,'flag_is_own')->checkbox(['value'=>'Y','uncheck'=>'N','checked'=>$item->active=='Y'?true:false])
                     .$form->field($item,'flag_is_public')->checkbox(['value'=>'Y','uncheck'=>'N','checked'=>$item->active=='Y'?true:false])
                     .$form->field($item,'flag_is_need_to_custom')->checkbox(['value'=>'Y','uncheck'=>'N','checked'=>$item->active=='Y'?true:false])
+                    .$form->field($item,'flag_is_fast_release')->checkbox(['value'=>'Y','uncheck'=>'N','checked'=>$item->active=='Y'?true:false])
                     .$form->field($item,'custom_address')
                     .$form->field($item,'lk_address')
                     .$form->field($item,'phone')
