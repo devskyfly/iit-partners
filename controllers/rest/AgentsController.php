@@ -38,6 +38,9 @@ class AgentsController extends CommonController
 
            $arr_item['locality_name']=Str::toString($settlement->name);
            $arr_item['locality_type']=Settlement::$hash_types[$settlement['type']];
+
+
+
            return $arr_item;
        };
        
@@ -62,7 +65,7 @@ class AgentsController extends CommonController
            "close"=>"closed_time"
        ];
 
-       $data=$this->formData($query, $fields, $callback);
+       $data = $this->formData($query, $fields, $callback);
 
        /*$data=array_map(function($item){
             $item['settlement_id']=Nmbr::toIntegerStrict($item['settlement_id']);
@@ -81,30 +84,33 @@ class AgentsController extends CommonController
                 $item=$nearestItm['link'];
 
                 if (($nearestItm['del'] < $del)
-                || ($del == 0)) {
-                    if(empty($item->_settlement__id)) continue;
-                    $settlement_id=Nmbr::toIntegerStrict($item->_settlement__id);
-                    $settlement=Settlement::getById($settlement_id);
-                    if(empty($settlement->_region__id)) continue;
-                    $region=Region::find()
-                    ->where(['id'=>$settlement->_region__id])
-                    ->one();
-                    $region_id=$region->str_nmb;
-                        $result[]=[
-                        "title"=>$item->name,
-                        "guid"=>$item->lk_guid,
-                        "license"=>$item->flag_is_license,
-                        "is_own"=>$item->flag_is_own,
-                        "longitude"=>$item->lng,
-                        "latitude"=>$item->lat,
-                        "email"=>$item->email,
-                        "phone"=>$item->phone,
-                        "address"=>$item->custom_address,
-                        "settlement_id"=>$settlement_id,
-                        "region_id"=>$region_id,
-                        "del" => $nearestItm['del']
+                    || ($del == 0)
+                ) {
+                    if (empty($item->_settlement__id)) continue;
+                    $settlement_id = Nmbr::toIntegerStrict($item->_settlement__id);
+                    $settlement = Settlement::getById($settlement_id);
+                    if (empty($settlement->_region__id)) continue;
+                    $region = Region::find()
+                        ->where(['id' => $settlement->_region__id])
+                        ->one();
+                    $region_id = $region->str_nmb;
+                    $result[] = [
+                        "title" => $item->name,
+                        "guid" => $item->lk_guid,
+                        "license" => $item->flag_is_license == 'Y' ? true : false,
+                        "fast_release" => $item->flag_is_fast_release == 'Y' ? true : false,
+                        "is_own" => $item->flag_is_own,
+                        "longitude" => $item->lng,
+                        "latitude" => $item->lat,
+                        "email" => $item->email,
+                        "phone" => $item->phone,
+                        "address" => $item->custom_address,
+                        "settlement_id" => $settlement_id,
+                        "region_id" => $region_id,
+                        "del" => $nearestItm['del'],
+                        "closed_time" => $item->close
                     ];
-               }
+                }
             }
             return $result;
         };
@@ -115,8 +121,6 @@ class AgentsController extends CommonController
      
         $result=[];
         $nearest=AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
-
-
 
 
         if (Vrbl::isNull($nearest)) {
@@ -134,12 +138,15 @@ class AgentsController extends CommonController
             }
         }
 
-        $result = static::sortByOwn($result, 3);
+        $result = static::mvUpperByOwn($result, 3);
+        $result = static::mvDownClosed($result);
+        $result = static::mvDownNotFastRelease($result);
+
 
         $this->asJson($result);
     }
    
-    protected function sortByOwn($arr,$del=0)
+    protected function mvUpperByOwn($arr,$del=0)
     {
         if(!is_array($arr)){
             throw new \InvalidArgumentException('Param $arr is not array type.');
@@ -170,6 +177,52 @@ class AgentsController extends CommonController
         }
 
         $arr = ArrayHelper::merge($own, $arr);
+        $arr = array_values($arr);
+
+        return $arr;
+    }
+
+    protected function mvDownClosed($arr)
+    {
+        if(!is_array($arr)){
+            throw new \InvalidArgumentException('Param $arr is not array type.');
+        }
+
+        $partion = [];
+        $size = count($arr);
+        
+        for ($i = 0; $i < $size; $i++) {
+            $itm = $arr[$i];
+            if (empty($itm['closed_time'])) {
+                $partion[] = $itm;
+                unset($arr[$i]);
+            }
+        }
+
+        $arr = ArrayHelper::merge($arr, $partion);
+        $arr = array_values($arr);
+
+        return $arr;
+    }
+
+    protected function mvDownNotFastRelease($arr)
+    {
+        if(!is_array($arr)){
+            throw new \InvalidArgumentException('Param $arr is not array type.');
+        }
+        
+        $partion = [];
+        $size = count($arr);
+        
+        for ($i = 0; $i < $size; $i++) {
+            $itm = $arr[$i];
+            if ($itm['fast_release']) {
+                $partion[] = $itm;
+                unset($arr[$i]);
+            }
+        }
+
+        $arr = ArrayHelper::merge($arr, $partion);
         $arr = array_values($arr);
 
         return $arr;
