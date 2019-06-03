@@ -8,6 +8,7 @@ use devskyfly\yiiModuleIitPartners\models\Region;
 use devskyfly\yiiModuleIitPartners\models\Settlement;
 use devskyfly\yiiModuleIitPartners\components\AgentsManager;
 use yii\web\BadRequestHttpException;
+use yii\helpers\ArrayHelper;
 
 class AgentsController extends CommonController
 {
