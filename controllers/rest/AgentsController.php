@@ -164,7 +164,7 @@ class AgentsController extends CommonController
                 }
             } else {
                 if (($itm['is_own'] == 'Y')
-                    && ($itm['del'] == $del)
+                    && ($itm['del'] <= $del)
                 ) {
                     $own[] = $itm;
                     unset($arr[$i]);
