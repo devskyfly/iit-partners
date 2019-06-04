@@ -35,7 +35,7 @@ class AgentsController extends CommonController
 
            $arr_item['region_id']=$region->str_nmb;
            $arr_item['settlement_id']=Nmbr::toIntegerStrict($item['_settlement__id']);
-           $arr_item['flag_is_fast_release']=$item['flag_is_fast_release']=='Y'?true:false;
+           $arr_item['fast_release']=$arr_item['fast_release']=='Y'?true:false;
            $arr_item['locality_name']=Str::toString($settlement->name);
            $arr_item['locality_type']=Settlement::$hash_types[$settlement['type']];
            return $arr_item;
