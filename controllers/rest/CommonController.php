@@ -49,6 +49,9 @@ abstract class CommonController extends Controller
         
         $generator=$this->getItems($query);
         foreach ($generator as $item){
+            if(Vrbl::isNull($item)){
+                continue;
+            }
             $item_arr=$item->toArray();
             $arr_item=array_fill_keys($keys, '');
             foreach ($fields as $key=>$field){

@@ -38,6 +38,12 @@ class AgentsController extends CommonController
            $arr_item['fast_release']=$arr_item['fast_release']=='Y'?true:false;
            $arr_item['locality_name']=Str::toString($settlement->name);
            $arr_item['locality_type']=Settlement::$hash_types[$settlement['type']];
+
+           if((!Nmbr::isNumeric($item['lng']))
+           ||(!Nmbr::isNumeric($item['lat']))){
+                return null;
+           }
+
            return $arr_item;
        };
        
