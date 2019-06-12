@@ -28,6 +28,9 @@ abstract class CommonController extends Controller
     public function getItems(ActiveQuery $query)
     {
         foreach ($query->each() as $item){
+            if(Vrbl::isNull($item)){
+                continue;
+            }
             yield $item;
         }
     }
@@ -49,9 +52,9 @@ abstract class CommonController extends Controller
         
         $generator=$this->getItems($query);
         foreach ($generator as $item){
-            if(Vrbl::isNull($item)){
+            /*if(Vrbl::isNull($item)){
                 continue;
-            }
+            }*/
             $item_arr=$item->toArray();
             $arr_item=array_fill_keys($keys, '');
             foreach ($fields as $key=>$field){
