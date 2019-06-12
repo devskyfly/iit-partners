@@ -96,8 +96,8 @@ class AgentsManager extends BaseObject
 
         $arr=[];
         foreach ($agents as $agent){
-            if((!Nmbr::isNumeric($agent['lng']))
-            ||(!Nmbr::isNumeric($agent['lat'])))
+            if((Nmbr::isNumeric($agent['lng']))
+            &&(Nmbr::isNumeric($agent['lat'])))
             $arr[]=[
                 'link'=>$agent,
                 'lng'=>$agent->lng,
