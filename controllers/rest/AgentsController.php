@@ -141,7 +141,7 @@ class AgentsController extends CommonController
             }
         }
 
-        $result = static::mvDownNotFastRelease($result);
+        //$result = static::mvDownNotFastRelease($result);
         $result = static::mvDownClosed($result);
         $result = static::mvUpperByOwn($result, 3);
 
