@@ -111,6 +111,8 @@ class AgentsController extends CommonController
                         "settlement_id" => $settlement_id,
                         "region_id" => $region_id,
                         "del" => $nearestItm['del'],
+                        "comment"=>$item->comment,
+                        "open_hours" => $item->open,
                         "closed_time" => $item->close
                     ];
                 }
