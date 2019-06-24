@@ -19,10 +19,12 @@ class AgentsController extends CommonController
        }
        
        $callback=function($item,$arr_item){
-           
-           $settlement=Settlement::getById($item['_settlement__id']);
+           $settlement_id=Nmbr::toInteger($item['_settlement__id']);
+           $settlement=Settlement::getById($settlement_id);
            if(Vrbl::isNull($settlement)){
-               throw new \InvalidArgumentException('Parameter $settlment is null.');
+                return null;
+               //throw new \InvalidArgumentException('Parameter $settlment is null.');
+               
            }
            
            $region_id=$settlement['_region__id'];
