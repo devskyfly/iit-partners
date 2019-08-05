@@ -37,6 +37,7 @@ class Module extends \yii\base\Module
      public function init()
      {
          parent::init();
+         Yii::setAlias("@devskyfly/yiiModuleIitPartners", __DIR__);
          $this->checkProperties();
          if(Yii::$app instanceof \yii\console\Application){
              $this->controllerNamespace='devskyfly\yiiModuleIitPartners\console';
