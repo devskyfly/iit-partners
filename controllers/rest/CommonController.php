@@ -62,7 +62,9 @@ abstract class CommonController extends Controller
             if(Vrbl::isCallable($callback)){
                 $arr_item=$callback($item,$arr_item);
             }
-            $arr[]=$arr_item;
+            if(!Vrbl::isNull($arr_item)){
+                $arr[]=$arr_item;
+            }
         }
         return $arr;
     }

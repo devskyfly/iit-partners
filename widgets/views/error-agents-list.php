@@ -15,7 +15,8 @@ use yii\helpers\Url;
 <?$i++;?>
 		<tr>
 			<td><?=$i?></td>
-			<td><?=Html::a($item['name'],Url::toRoute(['/iit-partners/agents/entity-edit',"entity_id"=>$item['id']]))?></td>
+			<td><?=Html::a($item['obj']['name'],Url::toRoute(['/iit-partners/agents/entity-edit',"entity_id"=>$item['obj']['id']]))?></td>
+			<td><?=$item['msg']?></td>
 		</tr>
 <?endforeach;?>
 	</table>

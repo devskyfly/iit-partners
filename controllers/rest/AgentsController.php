@@ -19,10 +19,12 @@ class AgentsController extends CommonController
        }
        
        $callback=function($item,$arr_item){
-           
-           $settlement=Settlement::getById($item['_settlement__id']);
+           $settlement_id=Nmbr::toInteger($item['_settlement__id']);
+           $settlement=Settlement::getById($settlement_id);
            if(Vrbl::isNull($settlement)){
-               throw new \InvalidArgumentException('Parameter $settlment is null.');
+                return null;
+               //throw new \InvalidArgumentException('Parameter $settlment is null.');
+               
            }
            
            $region_id=$settlement['_region__id'];
@@ -38,6 +40,12 @@ class AgentsController extends CommonController
            $arr_item['fast_release']=$arr_item['fast_release']=='Y'?true:false;
            $arr_item['locality_name']=Str::toString($settlement->name);
            $arr_item['locality_type']=Settlement::$hash_types[$settlement['type']];
+
+           if((!Nmbr::isNumeric($item['lng']))
+           ||(!Nmbr::isNumeric($item['lat']))){
+                return null;
+           }
+
            return $arr_item;
        };
        
@@ -53,7 +61,7 @@ class AgentsController extends CommonController
            "lat"=>"latitude",
            "email"=>"email",
            "phone"=>"phone",
-           "custom_address"=>"address",
+           "lk_address"=>"address",
            "_settlement__id"=>"settlement_id",
            "locality_name"=>"locality_name",
            "locality_type"=>"locality_type",
@@ -101,10 +109,12 @@ class AgentsController extends CommonController
                         "latitude" => $item->lat,
                         "email" => $item->email,
                         "phone" => $item->phone,
-                        "address" => $item->custom_address,
+                        "address" => $item->lk_address,
                         "settlement_id" => $settlement_id,
                         "region_id" => $region_id,
                         "del" => $nearestItm['del'],
+                        "comment"=>$item->comment,
+                        "open_hours" => $item->open,
                         "closed_time" => $item->close
                     ];
                 }
@@ -135,7 +145,7 @@ class AgentsController extends CommonController
             }
         }
 
-        $result = static::mvDownNotFastRelease($result);
+        //$result = static::mvDownNotFastRelease($result);
         $result = static::mvDownClosed($result);
         $result = static::mvUpperByOwn($result, 3);
 
