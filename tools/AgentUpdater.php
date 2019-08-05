@@ -38,10 +38,9 @@ class AgentUpdater extends BaseObject
     public function init()
     {
         $this->status=new Status();
-        $this->module=Yii::$app->getModule('iit-partners');
+        $this->module=Module::getInstance();
         
-        if(Vrbl::isNull($this->module))
-        {
+        if (Vrbl::isNull($this->module)) {
             throw new \Exception('Module "iit-partners" does not exist.');
         }
         

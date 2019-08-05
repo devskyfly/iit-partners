@@ -6,6 +6,7 @@ use Yii;
 use yii\console\Controller;
 use yii\helpers\BaseConsole;
 use yii\httpclient\Client;
+use devskyfly\yiiModuleIitPartners\Module;
 
 class LkController extends Controller
 {
@@ -18,9 +19,8 @@ class LkController extends Controller
     public function actionSendRequestForAgents()
     {
         try {
-            $this->module=Yii::$app->getModule('iit-partners');
-            if(Vrbl::isNull($this->module))
-            {
+            $this->module=Module::getInstance();
+            if (Vrbl::isNull($this->module)) {
                 throw new \Exception('Module "iit-partners" does not exist.');
             }
             
