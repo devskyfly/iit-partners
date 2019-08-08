@@ -41,13 +41,6 @@ iit-partners/settlements/clear                 Delete Settlements items.
 ]
 ```
 
-
-### Настройки модуля
-
- * $lk_login="" - логин доступа к api LK
- * $lk_pass="" - пароль доступа к api LK
- * $lk_url="" - url метода api LK
-
 ### Применение миграций
 
-./yii migrate --migrationPath=@app/vendor/devskyfly/yii-module-iit-agents-info/migrations
+./yii migrate --migrationPath=@app/vendor/devskyfly/yii-module-iit-partners/migrations
