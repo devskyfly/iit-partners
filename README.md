@@ -10,7 +10,7 @@
 
 Модуль имеет свое rest [api](docs/api/namespaces/devskyfly.yiiModuleIitUc.controllers.rest.html).
 
-Консольные команды:
+### Консольные команды:
 
 iit-partners/agents                              
 iit-partners/agents/clear                      Delete agents items.
@@ -27,3 +27,27 @@ iit-partners/regions/init                      Init region table from external f
 
 iit-partners/settlements                         
 iit-partners/settlements/clear                 Delete Settlements items.
+
+### Подключение модуля
+
+Модуль надо подключить как к web так и console.
+
+```php
+'iit-partners'=>[
+    'class'=>'devskyfly\yiiModuleIitPartners\Module',
+    'lk_login'=>'KozhevnikovA',
+    'lk_pass'=>'8JxLkP4IQ2FV',
+    'lk_url'=>'https://iitrust.lk/api/agent/points/dump/?format=json',
+]
+```
+
+
+### Настройки модуля
+
+ * $lk_login="" - логин доступа к api LK
+ * $lk_pass="" - пароль доступа к api LK
+ * $lk_url="" - url метода api LK
+
+### Применение миграций
+
+./yii migrate --migrationPath=@app/vendor/devskyfly/yii-module-iit-agents-info/migrations
