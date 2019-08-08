@@ -1,3 +1,29 @@
-## Iit partners yii2 module
+## yii-module-iit-uc
 
-Это модуль для управления агентами, регионами и населенными пунктами.
+[Докуметация](docs/api/index.html)
+
+Модуль позволяет управлять [сущностями](docs/api/namespaces/devskyfly.yiiModuleIitUc.models.html):
+
+* Регионы
+* Населенные пункты
+* Агенты
+
+Модуль имеет свое rest [api](docs/api/namespaces/devskyfly.yiiModuleIitUc.controllers.rest.html).
+
+Консольные команды:
+
+iit-partners/agents                              
+iit-partners/agents/clear                      Delete agents items.
+iit-partners/agents/reset-need-to-custom-flag
+iit-partners/agents/update                     Update agents and add settlements if it needs.
+
+iit-partners/lk                                  
+iit-partners/lk/send-request-for-agents        Send request to Lk and print result to stdout.
+iit-partners/lk/send-request-for-orgs
+
+iit-partners/regions                             
+iit-partners/regions/clear                     Clear regions.
+iit-partners/regions/init                      Init region table from external file.
+
+iit-partners/settlements                         
+iit-partners/settlements/clear                 Delete Settlements items.
