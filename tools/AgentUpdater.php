@@ -9,6 +9,7 @@ use yii\base\BaseObject;
 use yii\httpclient\Client;
 use yii\helpers\BaseConsole;
 use devskyfly\yiiModuleIitPartners\models\Settlement;
+use devskyfly\yiiModuleIitPartners\Module;
 
 class AgentUpdater extends BaseObject
 {
