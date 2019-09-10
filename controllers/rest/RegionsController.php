@@ -5,6 +5,7 @@ use yii\web\BadRequestHttpException;
 use yii\helpers\ArrayHelper;
 use devskyfly\yiiModuleIitPartners\models\Agent;
 use devskyfly\yiiModuleIitPartners\components\RegionsManager;
+use devskyfly\yiiModuleIitPartners\models\Region;
 
 class RegionsController extends CommonController
 {
@@ -39,6 +40,16 @@ class RegionsController extends CommonController
         
         $data=ArrayHelper::merge($head,$data);
         $this->asJson($data);
+    }
+
+    public function actionAll()
+    {
+        $result = [];
+        $regions = Region::find()->orderBy(['str_nmb'=>SORT_ASC])->all();
+        foreach ($regions as $region) {
+            $result[] =["name"=>$region->name,"code"=>$region['str_nmb']];
+        }
+        $this->asJson($result);
     }
 }
 
