@@ -21,7 +21,5 @@
 		}
 	},
 	"require-dev": {
-		"doctrine/annotations": "^1.6",
-		"phpdocumentor/phpdocumentor": "v2.8.5"
 	}
 }
