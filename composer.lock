@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e26242a03adbfbabd24b67d586fe9f8",
+    "content-hash": "be35672cadb27623bc4e0ab4f4abd5f5",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -227,26 +227,23 @@
         },
         {
             "name": "devskyfly/php56",
-            "version": "dev-dev",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devskyfly/php56.git",
-                "reference": "e2f4002851fc5ede3257960bc4dd5801d82b48f1"
+                "reference": "8e913374afd4337af800decd81e5f2a796ba98e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devskyfly/php56/zipball/e2f4002851fc5ede3257960bc4dd5801d82b48f1",
-                "reference": "e2f4002851fc5ede3257960bc4dd5801d82b48f1",
+                "url": "https://api.github.com/repos/devskyfly/php56/zipball/8e913374afd4337af800decd81e5f2a796ba98e9",
+                "reference": "8e913374afd4337af800decd81e5f2a796ba98e9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "codeception/codeception": "^2.4",
-                "consolidation/robo": "^1.4",
-                "friendsofphp/php-cs-fixer": "^2.15",
-                "symfony/console": "^3.4.17"
+                "codeception/codeception": "^2.4"
             },
             "type": "library",
             "autoload": {
@@ -265,24 +262,24 @@
                 }
             ],
             "description": "Represent core php function and constants by namespaces and classes like static members.",
-            "time": "2019-07-24T09:30:59+00:00"
+            "time": "2019-02-19T08:58:19+00:00"
         },
         {
             "name": "devskyfly/yii-module-admin-panel",
-            "version": "dev-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/devskyfly/yii-module-admin-panel.git",
-                "reference": "b0c6739b1b2376c13fd02f64c640f3859d026b22"
+                "reference": "615665268966993442c50c90d138df4d5181fbf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devskyfly/yii-module-admin-panel/zipball/b0c6739b1b2376c13fd02f64c640f3859d026b22",
-                "reference": "b0c6739b1b2376c13fd02f64c640f3859d026b22",
+                "url": "https://api.github.com/repos/devskyfly/yii-module-admin-panel/zipball/615665268966993442c50c90d138df4d5181fbf1",
+                "reference": "615665268966993442c50c90d138df4d5181fbf1",
                 "shasum": ""
             },
             "require": {
-                "devskyfly/php56": "dev-dev",
+                "devskyfly/php56": "^1.0.0",
                 "elasticsearch/elasticsearch": "^5.3",
                 "inblank/yii2-transliter": "^0.1.1",
                 "php": ">=5.6.0",
@@ -294,7 +291,7 @@
             "type": "module",
             "autoload": {
                 "psr-4": {
-                    "devskyfly\\yiiModuleAdminPanel\\": ""
+                    "devskyfly\\yiiModuleAdminPanel\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -307,7 +304,7 @@
                     "email": "devskyfly@gmail.com"
                 }
             ],
-            "time": "2019-08-06T10:13:47+00:00"
+            "time": "2019-11-22T07:21:56+00:00"
         },
         {
             "name": "elasticsearch/elasticsearch",
@@ -366,16 +363,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.11.0",
+            "version": "v4.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7"
+                "reference": "a617e55bc62a87eec73bd456d146d134ad716f03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7",
-                "reference": "83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/a617e55bc62a87eec73bd456d146d134ad716f03",
+                "reference": "a617e55bc62a87eec73bd456d146d134ad716f03",
                 "shasum": ""
             },
             "require": {
@@ -409,7 +406,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2019-07-14T18:58:38+00:00"
+            "time": "2019-10-28T03:44:26+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -1150,16 +1147,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.24",
+            "version": "2.0.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "4c9e05f7411bfe4d6ba9b38a2feea6e4353f1457"
+                "reference": "dfeeaf4dbdd23c9cd29b9246921e8a9ca2dbabe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/4c9e05f7411bfe4d6ba9b38a2feea6e4353f1457",
-                "reference": "4c9e05f7411bfe4d6ba9b38a2feea6e4353f1457",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/dfeeaf4dbdd23c9cd29b9246921e8a9ca2dbabe4",
+                "reference": "dfeeaf4dbdd23c9cd29b9246921e8a9ca2dbabe4",
                 "shasum": ""
             },
             "require": {
@@ -1196,48 +1193,48 @@
             "authors": [
                 {
                     "name": "Qiang Xue",
-                    "role": "Founder and project lead",
                     "email": "qiang.xue@gmail.com",
-                    "homepage": "http://www.yiiframework.com/"
+                    "homepage": "http://www.yiiframework.com/",
+                    "role": "Founder and project lead"
                 },
                 {
                     "name": "Alexander Makarov",
-                    "role": "Core framework development",
                     "email": "sam@rmcreative.ru",
-                    "homepage": "http://rmcreative.ru/"
+                    "homepage": "http://rmcreative.ru/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Maurizio Domba",
-                    "role": "Core framework development",
-                    "homepage": "http://mdomba.info/"
+                    "homepage": "http://mdomba.info/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Carsten Brandt",
-                    "role": "Core framework development",
                     "email": "mail@cebe.cc",
-                    "homepage": "http://cebe.cc/"
+                    "homepage": "http://cebe.cc/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Timur Ruziev",
-                    "role": "Core framework development",
                     "email": "resurtm@gmail.com",
-                    "homepage": "http://resurtm.com/"
+                    "homepage": "http://resurtm.com/",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Paul Klimov",
-                    "role": "Core framework development",
-                    "email": "klimov.paul@gmail.com"
+                    "email": "klimov.paul@gmail.com",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Dmitry Naumenko",
-                    "role": "Core framework development",
-                    "email": "d.naumenko.a@gmail.com"
+                    "email": "d.naumenko.a@gmail.com",
+                    "role": "Core framework development"
                 },
                 {
                     "name": "Boudewijn Vahrmeijer",
-                    "role": "Core framework development",
                     "email": "info@dynasource.eu",
-                    "homepage": "http://dynasource.eu"
+                    "homepage": "http://dynasource.eu",
+                    "role": "Core framework development"
                 }
             ],
             "description": "Yii PHP Framework Version 2",
@@ -1246,7 +1243,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2019-07-30T15:17:45+00:00"
+            "time": "2019-11-19T21:22:20+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1309,12 +1306,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-elasticsearch.git",
-                "reference": "eae1ec66d1540259b1050120adcd1d9ae8571404"
+                "reference": "c9ef9326474a11a9a024082fbe71747f9952672d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-elasticsearch/zipball/eae1ec66d1540259b1050120adcd1d9ae8571404",
-                "reference": "eae1ec66d1540259b1050120adcd1d9ae8571404",
+                "url": "https://api.github.com/repos/yiisoft/yii2-elasticsearch/zipball/c9ef9326474a11a9a024082fbe71747f9952672d",
+                "reference": "c9ef9326474a11a9a024082fbe71747f9952672d",
                 "shasum": ""
             },
             "require": {
@@ -1353,20 +1350,20 @@
                 "search",
                 "yii2"
             ],
-            "time": "2019-07-30T21:45:23+00:00"
+            "time": "2019-09-03T15:27:06+00:00"
         },
         {
             "name": "yiisoft/yii2-httpclient",
-            "version": "2.0.11",
+            "version": "2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-httpclient.git",
-                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7"
+                "reference": "a66a2de6d7dd6d068da3f85a12589fedd0d76855"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/cf532447447216bd8cb167689ac18f4e7dc1c1a7",
-                "reference": "cf532447447216bd8cb167689ac18f4e7dc1c1a7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-httpclient/zipball/a66a2de6d7dd6d068da3f85a12589fedd0d76855",
+                "reference": "a66a2de6d7dd6d068da3f85a12589fedd0d76855",
                 "shasum": ""
             },
             "require": {
@@ -1403,15 +1400,13 @@
                 "httpclient",
                 "yii2"
             ],
-            "time": "2019-05-14T13:33:37+00:00"
+            "time": "2019-10-08T09:48:39+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "devskyfly/yii-module-admin-panel": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
