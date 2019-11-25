@@ -23,6 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property string $flag_is_own
  * @property string $flag_is_public
  * @property string $flag_is_need_to_custom
+ * @property string $flag_exclude_bundle
  * 
  * @property string $manager_in_charge
  * @property string $_settlement__id
@@ -60,7 +61,11 @@ class Agent extends AbstractEntity
             [['manager_in_charge'],'string'],
             [['phone','email'],'string'],
             [['_settlement__id'],'integer'],
-            [['flag_is_license','flag_is_own','flag_is_public','flag_is_need_to_custom'],'string'],
+            [['flag_is_license',
+            'flag_is_own',
+            'flag_is_public',
+            'flag_is_need_to_custom',
+            'flag_exclude_bundle'],'string'],
             [['partner_code'],'string']
         ];
         

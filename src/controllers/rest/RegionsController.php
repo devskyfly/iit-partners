@@ -8,16 +8,24 @@ use devskyfly\yiiModuleIitPartners\components\RegionsManager;
 
 class RegionsController extends CommonController
 {
-    public function actionIndex($license=null)
+    public function actionIndex($license = null, $bundle = null, $iit_offices = null)
     {
         $data=[];
         $head=[];
         
-        if(!in_array($license, ['Y','N',null])){
+        if(!in_array($license, ['Y', 'N', null])){
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
+
+        if (!in_array($bundle, ['Y', 'N', null])) {
+            throw new BadRequestHttpException('Query parameter $bundle is out of range.');
+        }
+
+        if (!in_array($iit_offices, ['Y', 'N', null])) {
+            throw new BadRequestHttpException('Query parameter $iit_offices is out of range.');
+        }
         
-        $query=RegionsManager::getAll($license,'Y',null,false);
+        $query = RegionsManager::getAll($license, 'Y', $bundle, $iit_offices,  null, false);
         
         $fields=[
             "id"=>"id",
@@ -37,7 +45,7 @@ class RegionsController extends CommonController
             }
         }
         
-        $data=ArrayHelper::merge($head,$data);
+        $data = ArrayHelper::merge($head, $data);
         $this->asJson($data);
     }
 }

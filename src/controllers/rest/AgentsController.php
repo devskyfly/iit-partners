@@ -12,62 +12,68 @@ use yii\helpers\ArrayHelper;
 
 class AgentsController extends CommonController
 {
-    public function actionIndex($license=null)
+    public function actionIndex($license = null, $bundle = null, $iit_offices = null)
     {
-       if(!in_array($license, ['Y','N',null])){
+       if (!in_array($license, ['Y','N',null])) {
             throw new BadRequestHttpException('Query parameter $license is out of range.');
        }
-       
-       $callback=function($item,$arr_item){
-           $settlement_id=Nmbr::toInteger($item['_settlement__id']);
-           $settlement=Settlement::getById($settlement_id);
-           if(Vrbl::isNull($settlement)){
+
+       if (!in_array($bundle, ['Y','N',null])) {
+            throw new BadRequestHttpException('Query parameter $bundle is out of range.');
+       }
+
+       if (!in_array($iit_offices, ['Y','N',null])) {
+            throw new BadRequestHttpException('Query parameter $iit_offices is out of range.');
+       }
+
+       $callback = function($item,$arr_item){
+           $settlement_id = Nmbr::toInteger($item['_settlement__id']);
+           $settlement = Settlement::getById($settlement_id);
+           if (Vrbl::isNull($settlement)) {
                 return null;
-               //throw new \InvalidArgumentException('Parameter $settlment is null.');
-               
+               //throw new \InvalidArgumentException('Parameter $settlment is null.');               
            }
            
-           $region_id=$settlement['_region__id'];
-           $region=Region::find()
+           $region_id = $settlement['_region__id'];
+           $region = Region::find()
            ->where(['id'=>$region_id])
            ->one();
            
-           $settlement=Settlement::find()->where(['id'=>$item['_settlement__id']])->one();
+           $settlement = Settlement::find()->where(['id'=>$item['_settlement__id']])->one();
            
+           $arr_item['region_id'] = $region->str_nmb;
+           $arr_item['settlement_id'] = Nmbr::toIntegerStrict($item['_settlement__id']);
+           $arr_item['fast_release'] = $arr_item['fast_release']=='Y'?true:false;
+           $arr_item['locality_name'] = Str::toString($settlement->name);
+           $arr_item['locality_type'] = Settlement::$hash_types[$settlement['type']];
 
-           $arr_item['region_id']=$region->str_nmb;
-           $arr_item['settlement_id']=Nmbr::toIntegerStrict($item['_settlement__id']);
-           $arr_item['fast_release']=$arr_item['fast_release']=='Y'?true:false;
-           $arr_item['locality_name']=Str::toString($settlement->name);
-           $arr_item['locality_type']=Settlement::$hash_types[$settlement['type']];
-
-           if((!Nmbr::isNumeric($item['lng']))
-           ||(!Nmbr::isNumeric($item['lat']))){
+           if ((!Nmbr::isNumeric($item['lng']))
+           ||(!Nmbr::isNumeric($item['lat']))) {
                 return null;
            }
 
            return $arr_item;
        };
        
-       $query=AgentsManager::getAll($license,'Y',null,false);
+       $query = AgentsManager::getAll($license,'Y', $bundle, $iit_offices, null, false);
        
-       $fields=[
-           "name"=>"title",
-           "lk_guid"=>"guid",
-           "flag_is_license"=>"license",
-           "flag_is_own"=>"is_own",
-           "flag_is_fast_release"=>"fast_release",
-           "lng"=>"longitude",
-           "lat"=>"latitude",
-           "email"=>"email",
-           "phone"=>"phone",
-           "lk_address"=>"address",
-           "_settlement__id"=>"settlement_id",
-           "locality_name"=>"locality_name",
-           "locality_type"=>"locality_type",
-           "comment"=>"comment",
-           "open"=>"open_hours",
-           "close"=>"closed_time"
+       $fields = [
+           "name" => "title",
+           "lk_guid" =>"guid",
+           "flag_is_license" => "license",
+           "flag_is_own" => "is_own",
+           "flag_is_fast_release" => "fast_release",
+           "lng" => "longitude",
+           "lat" => "latitude",
+           "email" => "email",
+           "phone" => "phone",
+           "lk_address" => "address",
+           "_settlement__id" => "settlement_id",
+           "locality_name" => "locality_name",
+           "locality_type" => "locality_type",
+           "comment" => "comment",
+           "open" => "open_hours",
+           "close" => "closed_time"
        ];
 
        $data = $this->formData($query, $fields, $callback);
@@ -80,7 +86,7 @@ class AgentsController extends CommonController
        $this->asJson($data); 
     }
     
-    public function actionGetNearest($lng,$lat,$license=null)
+    public function actionGetNearest($lng, $lat, $license = null, $bundle = null, $iit_offices = null)
     {
         $resultFormFct = function ($nearest,$del=0)
         {
@@ -122,12 +128,20 @@ class AgentsController extends CommonController
             return $result;
         };
 
-        if(!in_array($license, ['Y','N',null])){
+        if (!in_array($license, ['Y', 'N', null])) {
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
+
+        if (!in_array($bundle, ['Y','N', null])) {
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
+
+        if (!in_array($iit_offices, ['Y','N', null])) {
             throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
      
-        $result=[];
-        $nearest=AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
+        $result = [];
+        $nearest = AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
 
 
         if (Vrbl::isNull($nearest)) {
@@ -154,11 +168,11 @@ class AgentsController extends CommonController
    
     protected function mvUpperByOwn($arr,$del=0)
     {
-        if(!is_array($arr)){
+        if (!is_array($arr)) {
             throw new \InvalidArgumentException('Param $arr is not array type.');
         }
 
-        if(!Nmbr::isNumeric($del)){
+        if (!Nmbr::isNumeric($del)) {
             throw new \InvalidArgumentException('Param $del is not numeric type.');
         }
 
@@ -190,7 +204,7 @@ class AgentsController extends CommonController
 
     protected function mvDownClosed($arr)
     {
-        if(!is_array($arr)){
+        if (!is_array($arr)) {
             throw new \InvalidArgumentException('Param $arr is not array type.');
         }
 
@@ -213,7 +227,7 @@ class AgentsController extends CommonController
 
     protected function mvDownNotFastRelease($arr)
     {
-        if(!is_array($arr)){
+        if (!is_array($arr)) {
             throw new \InvalidArgumentException('Param $arr is not array type.');
         }
         

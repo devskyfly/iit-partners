@@ -9,7 +9,7 @@ use yii\helpers\ArrayHelper;
 
 class AgentsManager extends BaseObject
 {
-    public static function getAll($license=null,$public=null,$flag_is_need_to_custom=null,$get_query_result=true)
+    public static function getAll($license = null, $public = null, $bundle = null, $iit_offices = null, $need_to_custom = null, $get_query_result = true)
     {
         if(!in_array($license, ['Y','N',null])){
             throw new \InvalidArgumentException('Parameter $license is out of range.');
@@ -19,27 +19,44 @@ class AgentsManager extends BaseObject
             throw new \InvalidArgumentException('Parameter $public is out of range.');
         }
         
-        if(!in_array($flag_is_need_to_custom, ['Y','N',null])){
-            throw new \InvalidArgumentException('Parameter $flag_is_need_to_custom is out of range.');
+        if(!in_array($need_to_custom, ['Y','N',null])){
+            throw new \InvalidArgumentException('Parameter $need_to_custom is out of range.');
         }
 
-        $query=Agent::find()->where(['active'=>'Y']);
+        if (!in_array($bundle, ['Y','N',null])) {
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
+
+        if (!in_array($iit_offices, ['Y','N',null])) {
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
+
+        $query = Agent::find()->where(['active'=>'Y']);
         
-        if(!Vrbl::isNull($license)){
+        if (!Vrbl::isNull($license)) {
             $query=$query->andWhere(['flag_is_license'=>$license]);
         }
         
-        if(!Vrbl::isNull($public)){
+        if (!Vrbl::isNull($public)) {
             $query=$query->andWhere(['flag_is_public'=>$public]);
         }
         
-        if(!Vrbl::isNull($flag_is_need_to_custom)){
-            $query=$query->andWhere(['flag_is_need_to_custom'=>$flag_is_need_to_custom]);
+        if (!Vrbl::isNull($need_to_custom)) {
+            $query=$query->andWhere(['flag_is_need_to_custom'=>$need_to_custom]);
+        }
+
+        if (!Vrbl::isNull($bundle)) {
+            $parameter = $bundle == "Y"?"N":"Y";
+            $query=$query->andWhere(['flag_exclude_bundle'=>$parameter]);
+        }
+
+        if (!Vrbl::isNull($iit_offices)) {
+            $query=$query->andWhere(['flag_is_own'=>$iit_offices]);
         }
         
-        if($get_query_result){
+        if ($get_query_result) {
             $query->all();
-        }else{
+        } else {
             return $query;
         }
     }
@@ -52,41 +69,60 @@ class AgentsManager extends BaseObject
      * @throws \InvalidArgumentException
      * @return \devskyfly\yiiModuleIitPartners\models\Agent|null
      */
-    public static function getNearest($lng, $lat, $license=null, $flag_is_need_to_custom=null, $public=null, $arr=true)
+    public static function getNearest($lng, $lat, $license = null, $bundle = null, $iit_offices = null, $need_to_custom = null, $public = null, $arr = true)
     {
-        if(!in_array($license, ['Y','N',null])){
+        if (!in_array($license, ['Y', 'N', null])){
             throw new \InvalidArgumentException('Parameter $license is out of range.');
         }
         
-        if(!in_array($public, ['Y','N',null])){
+        if (!in_array($public, ['Y', 'N', null])){
             throw new \InvalidArgumentException('Parameter $public is out of range.');
         }
         
-        if(!in_array($flag_is_need_to_custom, ['Y','N',null])){
-            throw new \InvalidArgumentException('Parameter $flag_is_need_to_custom is out of range.');
+        if (!in_array($need_to_custom, ['Y', 'N', null])){
+            throw new \InvalidArgumentException('Parameter $need_to_custom is out of range.');
+        }
+
+        if (!in_array($bundle, ['Y', 'N', null])) {
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
+        }
+
+        if (!in_array($iit_offices, ['Y', 'N', null])) {
+            throw new BadRequestHttpException('Query parameter $license is out of range.');
         }
         
-        $lng=Nmbr::toDoubleStrict($lng);
-        $lat=Nmbr::toDoubleStrict($lat);
+        $lng = Nmbr::toDoubleStrict($lng);
+        $lat = Nmbr::toDoubleStrict($lat);
         
         /* $agents=Agent::find()
         ->where(['active'=>'Y','flag_is_public'=>'Y','flag_is_license'=>$license])
         ->all(); */
         
-        $query=Agent::find()->where(['active'=>'Y']);
+        $query = Agent::find()->where(['active'=>'Y']);
         
-        if(!Vrbl::isNUll($license)){
+        if (!Vrbl::isNull($license)) {
             $query->andWhere(['flag_is_license'=>$license]);
         }
-        if(!Vrbl::isNUll($public)){
+
+        if (!Vrbl::isNull($public)) {
             $query->andWhere(['flag_is_public'=>$public]);
         }
-        if(!Vrbl::isNull($flag_is_need_to_custom)){
-            $query=$query->andWhere(['flag_is_need_to_custom'=>$flag_is_need_to_custom]);
+
+        if (!Vrbl::isNull($need_to_custom)) {
+            $query=$query->andWhere(['flag_is_need_to_custom'=>$need_to_custom]);
+        }
+
+        if (!Vrbl::isNull($bundle)) {
+            $parameter = $bundle == "Y"?"N":"Y";
+            $query=$query->andWhere(['flag_exclude_bundle'=>$parameter]);
+        }
+
+        if (!Vrbl::isNull($iit_offices)) {
+            $query=$query->andWhere(['flag_is_own'=>$iit_offices]);
         }
         
-        $agents=$query->all();
-        $sort_fn=function($a, $b)
+        $agents = $query->all();
+        $sort_fn = function($a, $b)
         {
             if ($a['del'] == $b['del']) {
                 return 0;
@@ -95,15 +131,16 @@ class AgentsManager extends BaseObject
         };
 
         $arr=[];
-        foreach ($agents as $agent){
-            if((Nmbr::isNumeric($agent['lng']))
-            &&(Nmbr::isNumeric($agent['lat'])))
-            $arr[]=[
-                'link'=>$agent,
-                'lng'=>$agent->lng,
-                'lat'=>$agent->lat,
-                'del'=>sqrt(pow($lng-$agent->lng,2)+pow($lat-$agent->lat,2))
-            ];
+        foreach ($agents as $agent) {
+            if ((Nmbr::isNumeric($agent['lng']))
+            && (Nmbr::isNumeric($agent['lat']))) {
+                $arr[]=[
+                    'link' => $agent,
+                    'lng' => $agent->lng,
+                    'lat' => $agent->lat,
+                    'del' => sqrt(pow($lng-$agent->lng, 2) + pow($lat-$agent->lat, 2))
+                ];
+            }
         }
         
         usort($arr, $sort_fn);
@@ -111,7 +148,7 @@ class AgentsManager extends BaseObject
         if ($arr) {
             return $arr;
         } else {
-            if(isset($arr[0])){
+            if (isset($arr[0])) {
                 return $arr[0];
             }
         }
