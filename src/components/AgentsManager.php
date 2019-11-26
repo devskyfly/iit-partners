@@ -24,11 +24,11 @@ class AgentsManager extends BaseObject
         }
 
         if (!in_array($bundle, ['Y','N',null])) {
-            throw new BadRequestHttpException('Query parameter $license is out of range.');
+            throw new BadRequestHttpException('Query parameter $bundle is out of range.');
         }
 
         if (!in_array($iit_offices, ['Y','N',null])) {
-            throw new BadRequestHttpException('Query parameter $license is out of range.');
+            throw new BadRequestHttpException('Query parameter $iit_offices is out of range.');
         }
 
         $query = Agent::find()->where(['active'=>'Y']);
@@ -84,11 +84,11 @@ class AgentsManager extends BaseObject
         }
 
         if (!in_array($bundle, ['Y', 'N', null])) {
-            throw new BadRequestHttpException('Query parameter $license is out of range.');
+            throw new BadRequestHttpException('Query parameter $bundle is out of range.');
         }
 
         if (!in_array($iit_offices, ['Y', 'N', null])) {
-            throw new BadRequestHttpException('Query parameter $license is out of range.');
+            throw new BadRequestHttpException('Query parameter $iit_offices is out of range.');
         }
         
         $lng = Nmbr::toDoubleStrict($lng);
@@ -109,19 +109,20 @@ class AgentsManager extends BaseObject
         }
 
         if (!Vrbl::isNull($need_to_custom)) {
-            $query=$query->andWhere(['flag_is_need_to_custom'=>$need_to_custom]);
+            $query=$query->andWhere(['flag_is_need_to_custom' => $need_to_custom]);
         }
 
         if (!Vrbl::isNull($bundle)) {
             $parameter = $bundle == "Y"?"N":"Y";
-            $query=$query->andWhere(['flag_exclude_bundle'=>$parameter]);
+            $query = $query->andWhere(['flag_exclude_bundle' => $parameter]);
         }
 
         if (!Vrbl::isNull($iit_offices)) {
-            $query=$query->andWhere(['flag_is_own'=>$iit_offices]);
+            $query = $query->andWhere(['flag_is_own'=>$iit_offices]);
         }
         
         $agents = $query->all();
+
         $sort_fn = function($a, $b)
         {
             if ($a['del'] == $b['del']) {
@@ -130,7 +131,7 @@ class AgentsManager extends BaseObject
             return ($a['del'] < $b['del']) ? -1 : 1;
         };
 
-        $arr=[];
+        $arr = [];
         foreach ($agents as $agent) {
             if ((Nmbr::isNumeric($agent['lng']))
             && (Nmbr::isNumeric($agent['lat']))) {

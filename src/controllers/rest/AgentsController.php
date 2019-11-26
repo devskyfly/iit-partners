@@ -141,9 +141,9 @@ class AgentsController extends CommonController
         }
      
         $result = [];
-        $nearest = AgentsManager::getNearest($lng, $lat, $license, null, 'Y', true);
 
-
+        $nearest = AgentsManager::getNearest($lng, $lat, $license, $bundle, $iit_offices, null, 'Y', true);
+    
         if (Vrbl::isNull($nearest)) {
             throw NotFoundHttpException();
         }
